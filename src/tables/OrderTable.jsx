@@ -58,7 +58,9 @@ const OrderTable = ({ customerId }) => {
                 title: 'Date',
                 dataIndex: 'date',
                 key: 'date',
-                render: text => moment(text).format('YYYY-MM-DD')  // Format date with moment.js
+                sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(),  // Sorting by Unix timestamp
+                sortDirections: ['descend', 'ascend'],  // Default sorting directions
+                render: text => moment(text).format('YYYY-MM-DD')
             },
             {
                 title: 'Note',
