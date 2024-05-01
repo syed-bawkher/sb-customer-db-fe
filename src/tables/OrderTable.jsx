@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const OrderTable = ({ customerId }) => {
     const [orders, setOrders] = useState(null);
-    const [setFilteredInfo] = useState({});
+    const [filteredInfo, setFilteredInfo] = useState({});
 
     const { Search } = Input; // Destructure Search from Input
 
