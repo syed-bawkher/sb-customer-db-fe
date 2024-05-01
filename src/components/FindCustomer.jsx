@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Input, message, Spin } from 'antd';
 import customerService from '../services/customerService';
-import CustomerCard from './CustomerCard';
 import CustomerList from './CustomerList';
 
 const FindCustomer = () => {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import orderService from '../services/orderService';
-import { DatePicker, Space, Table, Input, Button } from 'antd';
+import { Table, Input} from 'antd';
 import { FaSearch } from "react-icons/fa";
 import moment from 'moment';
 
 const OrderTable = ({ customerId }) => {
     const [orders, setOrders] = useState(null);
-    const [filteredInfo, setFilteredInfo] = useState({});
+    const [setFilteredInfo] = useState({});
 
     const { Search } = Input; // Destructure Search from Input
 
