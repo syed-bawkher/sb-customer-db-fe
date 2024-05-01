@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import orderService from '../services/orderService';
-import { Table, Input} from 'antd';
+import { Table, Input, Space} from 'antd';
 import { FaSearch } from "react-icons/fa";
 import moment from 'moment';
 
@@ -67,6 +67,15 @@ const OrderTable = ({ customerId }) => {
                 dataIndex: 'onote',
                 key: 'onote',
                 render: text => text || 'N/A'  // Show 'N/A' if note is null
+            },
+            {
+                title: 'Action',
+                key: 'action',
+                render: (_, record) => (
+                    <Space size="middle">
+                        <a href={`/order/${encodeURIComponent(record.orderNo)}`} className='text-blue-600'>View Order</a>
+                    </Space>
+                ),
             }
         ];
 
