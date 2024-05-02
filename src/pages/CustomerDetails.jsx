@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import customerService from '../services/customerService';
 import OrderTable from '../tables/OrderTable';
+import PastMeasurements from '../tables/PastMeasurements';
 
 const CustomerDetails = () => {
     const { customerId } = useParams();
@@ -66,6 +67,7 @@ const CustomerDetails = () => {
         </div>
         </div>
         <OrderTable customerId={customerId}/>
+        <PastMeasurements customerId={customerId}/>
     </>;
 };
 
