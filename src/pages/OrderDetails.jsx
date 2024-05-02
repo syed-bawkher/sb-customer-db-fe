@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import JacketCard from "../components/JacketCard";
 import PantCard from "../components/PantCard";
 import ShirtCard from "../components/ShirtCard";
+import orderService from "../services/orderService";
 
 const OrderDetails = () => {
   const { orderNo } = useParams();
+  const [order, setOrder] = useState(null);
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const data = await orderService.getOrder(orderNo);
+        setOrder(data);
+      } catch (error) {
+        console.error("Failed to fetch order details:", error);
+      }
+    };
+    fetchOrder();
+  }, [orderNo])
+
+  
 
   return (
     <>
@@ -14,6 +30,10 @@ const OrderDetails = () => {
         <JacketCard orderNo={orderNo} />
         <PantCard orderNo={orderNo} />
         <ShirtCard orderNo={orderNo} />
+      </div>
+      <div className="pt-10">
+        <div>Order Notes</div>
+        <div>{order ? order.onote || "No additional notes" : "Loading notes..."}</div>
       </div>
     </>
   );
