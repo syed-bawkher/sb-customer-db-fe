@@ -29,7 +29,6 @@ const FindCustomer = () => {
                 placeholder="Search by Name or Phone Number"
                 allowClear
                 enterButton="Search"
-                className='w-full md:w-1/2 xl:w-1/3'
                 onSearch={handleSearch}
             />
             <CustomerList customers={customers} />
