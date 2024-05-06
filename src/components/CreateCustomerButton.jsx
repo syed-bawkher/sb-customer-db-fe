@@ -3,8 +3,9 @@ import { IoMdCreate } from "react-icons/io";
 import { Button, Tooltip } from "antd";
 import CreateCustomerModal from "../modals/CreateCustomerModal";
 
-const CreateCustomerButton = () => {
-  const [isCreateCustomerModalVisible, setIsCreateCustomerModalVisible] = useState(false);
+const CreateCustomerButton = ({ customerId = null }) => {
+  const [isCreateCustomerModalVisible, setIsCreateCustomerModalVisible] =
+    useState(false);
 
   const handleCreateCustomer = () => {
     setIsCreateCustomerModalVisible(true);
@@ -12,18 +13,19 @@ const CreateCustomerButton = () => {
 
   return (
     <>
-      <Tooltip title="Create Customer">
+      <Tooltip title={customerId ? "Edit Customer" : "Create Customer"}>
         <Button
-          type="primary"
+          type={customerId ? "link" : "primary"}
           shape="circle"
           icon={<IoMdCreate />}
-          className="ml-2"
+          className={customerId ? "text-lg text-white" : "ml-2"}
           onClick={handleCreateCustomer}
         />
       </Tooltip>
       <CreateCustomerModal
         isOpen={isCreateCustomerModalVisible}
         isCancel={() => setIsCreateCustomerModalVisible(false)}
+        customerid={customerId} // Pass customerId to the modal
       />
     </>
   );

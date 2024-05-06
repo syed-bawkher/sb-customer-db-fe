@@ -14,7 +14,6 @@ const customerService = {
         }
     },
 
-    // Find Customer by ID (Route: 'http://localhost:8080/customer/customer_id',)
     findById: async (customer_id) => {
         const url = `${BASE_URL}/customer/${customer_id}`;
         try {
@@ -24,9 +23,31 @@ const customerService = {
             console.error('Error finding customer:', error);
             throw error;
         }
+    },
+
+    createCustomer: async (customer) => {
+        const url = `${BASE_URL}/customer`;
+        try {
+            const response = await axios.post(url, customer);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating customer:', error);
+            throw error;
+        }
+    },
+
+    updateCustomer: async (customer_id, customerData) => {
+        const url = `${BASE_URL}/customer/${customer_id}`;
+        try {
+            const response = await axios.put(url, customerData);
+            return response.data;
+        } catch (error) {
+            console.error('Error updating customer:', error);
+            throw error;  // Throws error to be caught where the function is called
+        }
     }
 
-    
+
 }
 
 export default customerService;
