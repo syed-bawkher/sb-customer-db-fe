@@ -25,6 +25,21 @@ const orderService = {
             console.error('Error finding order:', error);
             throw error;
         }
+    }, 
+    createOrder: async (customerId, orderDetails) => {
+        const url = `${BASE_URL}/order/${customerId}`;
+        try {
+            const { orderNo, date, note } = orderDetails;
+            const response = await axios.post(url, {
+                orderNo,
+                date,   // Optional, can be undefined which defaults to the current date in the backend
+                note    // Optional
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error creating order:', error);
+            throw error;
+        }
     }
 }
 

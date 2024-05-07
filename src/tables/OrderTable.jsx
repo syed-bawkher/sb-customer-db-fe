@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import orderService from '../services/orderService';
-import { Table, Input, Space} from 'antd';
+import { Table, Input, Space, Button} from 'antd';
 import { FaSearch } from "react-icons/fa";
 import moment from 'moment';
+import CreateOrderButton from '../components/CreateOrderButton';
 
 const OrderTable = ({ customerId }) => {
     const [orders, setOrders] = useState(null);
@@ -86,7 +87,13 @@ const OrderTable = ({ customerId }) => {
     return (
         <div className='pt-2'>
             <h1 className='py-2 text-lg font-light'>Orders</h1>
-            <Table className='shadow-lg rounded-lg bg-slate-300' dataSource={orders} columns={columns} rowKey="orderNo" />
+            <Table className='shadow-lg rounded-lg bg-slate-300' dataSource={orders} columns={columns} rowKey="orderNo" footer = {() => {
+                return (
+                    <div>
+                        <CreateOrderButton customerId={customerId}/>
+                    </div>
+                );
+            }}/>
         </div>
     );
 }
