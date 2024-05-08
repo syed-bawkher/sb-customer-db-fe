@@ -25,6 +25,17 @@ const pantService = {
             throw error;
         }
     },
+    createPantMeasurement: async (customerId, orderNo, measurementData) => {
+        const url = `${BASE_URL}/pantMeasurement/${encodeURIComponent(customerId)}/${encodeURIComponent(orderNo)}`;
+        try {
+            const response = await axios.post(url, measurementData);
+            console.log('Pant:', measurementData);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating pant measurement:', error);
+            throw error;
+        }
+    }
 
 }
 

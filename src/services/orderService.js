@@ -30,12 +30,13 @@ const orderService = {
         const url = `${BASE_URL}/order/${customerId}`;
         try {
             const { orderNo, date, note } = orderDetails;
+            console.log('Order:', orderDetails);
             const response = await axios.post(url, {
                 orderNo,
-                date,   // Optional, can be undefined which defaults to the current date in the backend
-                note    // Optional
+                date,
+                note
             });
-            return response.data;
+            return response.data;  // This will now include orderNo
         } catch (error) {
             console.error('Error creating order:', error);
             throw error;

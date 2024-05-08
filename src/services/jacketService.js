@@ -25,6 +25,17 @@ const jacketService = {
             throw error;
         }
     },
+    createJacketMeasurement: async (customerId, orderNo, measurementData) => {
+        const url = `${BASE_URL}/jacketMeasurement/${encodeURIComponent(customerId)}/${encodeURIComponent(orderNo)}`;
+        try {
+            const response = await axios.post(url, measurementData);
+            console.log('Jacket:', measurementData);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating jacket measurement:', error);
+            throw error;
+        }
+    }
 
 }
 
