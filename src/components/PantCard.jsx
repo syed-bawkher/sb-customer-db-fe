@@ -18,7 +18,7 @@ const PantCard = ({ orderNo }) => {
   }, [orderNo]);
 
   if (!pant) {
-    return <div>Loading Pant Details...</div>;
+    return <></>;
   } 
 
   if (!pant.length && !pant.inseem && !pant.waist && !pant.hips && !pant.bottom && !pant.knee && !pant.other_notes) {

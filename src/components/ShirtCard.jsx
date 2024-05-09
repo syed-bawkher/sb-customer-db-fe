@@ -18,7 +18,7 @@ const ShirtCard = ({ orderNo }) => {
   }, [orderNo]);
 
   if (!shirt) {
-    return <div>Loading Shirt Details...</div>;
+    return <></>;
   } 
 
   if (!shirt.length && !shirt.half_shoulder && !shirt.to_sleeve && !shirt.chest && !shirt.waist && !shirt.collar && !shirt.waist_coat_length && !shirt.sherwani_length && !shirt.other_notes) {

@@ -18,7 +18,7 @@ const JacketCard = ({ orderNo }) => {
   }, [orderNo]);
 
   if (!jacket) {
-    return <div>Loading Jacket Details...</div>;
+    return <></>;
   } 
 
   if (!jacket.collar && !jacket.chest && !jacket.waist && !jacket.jacket_length && !jacket.natural_length && !jacket.back_length && !jacket.x_back && !jacket.half_shoulder && !jacket.to_sleeve && !jacket.other_notes) {

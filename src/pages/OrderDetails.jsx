@@ -22,6 +22,7 @@ const OrderDetails = () => {
   }, [orderNo])
 
   
+  
 
   return (
     <>
