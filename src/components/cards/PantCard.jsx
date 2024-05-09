@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import pantService from "../services/pantService";
+import pantService from "../../services/pantService";
 
 const PantCard = ({ orderNo }) => {
   const [pant, setPant] = useState(null);

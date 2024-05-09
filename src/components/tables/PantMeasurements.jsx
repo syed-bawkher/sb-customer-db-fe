@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import pantService from "../services/pantService";
+import pantService from "../../services/pantService";
 import { Table } from "antd";
 import moment from 'moment';
 

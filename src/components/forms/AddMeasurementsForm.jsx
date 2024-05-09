@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Input, Form, Button, message, DatePicker, Checkbox } from "antd";
-import moment from "moment";
-import TextArea from "antd/es/input/TextArea";
+import { Form, message, Checkbox } from "antd";
 import JacketForm from "./JacketForm";
 import ShirtForm from "./ShirtForm";
 import PantForm from "./PantForm";

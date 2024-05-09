@@ -1,6 +1,6 @@
 import React from "react";
-import FindCustomer from "../components/FindCustomer";
-import CreateCustomerButton from "../components/CreateCustomerButton";
+import FindCustomer from "../components/search/FindCustomer";
+import CreateCustomerButton from "../components/buttons/CreateCustomerButton";
 const HomePage = () => {
   return (
     <div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import jacketService from '../services/jacketService';
+import jacketService from '../../services/jacketService';
 import moment from 'moment';
 
 const JacketMeasurements = ({ customerId }) => {

@@ -1,6 +1,7 @@
 import React , {useEffect} from "react";
 import { Modal, Input, Form, Button, message } from "antd";
-import customerService from "../services/customerService";
+import customerService from "../../services/customerService";
+import CreateCustomerForm from "../forms/CreateCustomerForm";
 
 const CreateCustomerModal = ({ isOpen, isCancel, customerid = null }) => {
   const [form] = Form.useForm();
@@ -65,50 +66,7 @@ const CreateCustomerModal = ({ isOpen, isCancel, customerid = null }) => {
       ]}
     >
       <Form form={form} >
-        <div className="space-y-2 flex flex-col py-2">
-          <h1 className="text-gray-600 text-lg">Name</h1>
-          <Form.Item label="First Name" name="first_name" rules={[{ required: true, message: 'Please Enter First Name' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item label="Middle Name" name="middle_name">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Last Name" name="last_name" rules={[{ required: true, message: 'Please Enter Last Name' }]}>
-            <Input />
-          </Form.Item>
-        </div>
-
-        <div className="space-y-2 flex flex-col py-2">
-          <h1 className="text-gray-600 text-lg">Contact</h1>
-          <Form.Item label="Mobile Phone" name="mobile" rules={[{ required: true, message: 'Please Enter Mobile Number' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item label="Office Phone" name="office_phone">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Residential Phone" name="residential_phone">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Email" name="email">
-            <Input />
-          </Form.Item>
-        </div>
-
-        <div className="space-y-2 flex flex-col py-2">
-          <h1 className="text-gray-600 text-lg">Address</h1>
-          <Form.Item label="Line 1" name="add1" rules={[{ required: true, message: 'Please Enter Address Line 1' }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item label="Line 2" name="add2">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Line 3" name="add3">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Line 4" name="add4">
-            <Input />
-          </Form.Item>
-        </div>
+        <CreateCustomerForm form={form} />
       </Form>
     </Modal>
   );

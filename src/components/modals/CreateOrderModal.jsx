@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Button, message, Steps, Form } from "antd";
-import orderService from "../services/orderService";
-import jacketService from "../services/jacketService";
-import shirtService from "../services/shirtService";
-import pantService from "../services/pantService";
+import orderService from "../../services/orderService";
+import jacketService from "../../services/jacketService";
+import shirtService from "../../services/shirtService";
+import pantService from "../../services/pantService";
 import moment from "moment";
 import TextArea from "antd/es/input/TextArea";
 import OrderDetailsForm from "../forms/OrderDetailsForm";

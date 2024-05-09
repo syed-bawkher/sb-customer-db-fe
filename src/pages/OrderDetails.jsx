@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import JacketCard from "../components/JacketCard";
-import PantCard from "../components/PantCard";
-import ShirtCard from "../components/ShirtCard";
+import JacketCard from "../components/cards/JacketCard";
+import PantCard from "../components/cards/PantCard";
+import ShirtCard from "../components/cards/ShirtCard";
 import orderService from "../services/orderService";
 
 const OrderDetails = () => {
@@ -22,7 +22,7 @@ const OrderDetails = () => {
   }, [orderNo])
 
   
-  
+
 
   return (
     <>

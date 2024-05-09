@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { Input, Form, Button, message, DatePicker, Checkbox } from "antd";
-import orderService from "../services/orderService";
-import moment from "moment";
-import TextArea from "antd/es/input/TextArea";
+import React from "react";
+import { Input, Form, DatePicker} from "antd";
 
 const OrderDetailsForm = ({ form, formData, setFormData }) => {
   const handleValueChange = (changedValues) => {

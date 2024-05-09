@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import customerService from "../services/customerService";
-import OrderTable from "../tables/OrderTable";
-import PastMeasurements from "../tables/PastMeasurements";
-import CreateCustomerButton from "../components/CreateCustomerButton";
-import CustomerDetailsCard from "../components/CustomerDetailsCard";
+import OrderTable from "../components/tables/OrderTable";
+import PastMeasurements from "../components/tables/PastMeasurements";
+import CreateCustomerButton from "../components/buttons/CreateCustomerButton";
+import CustomerDetailsCard from "../components/cards/CustomerDetailsCard";
 
 const CustomerDetails = () => {
   const { customerId } = useParams();

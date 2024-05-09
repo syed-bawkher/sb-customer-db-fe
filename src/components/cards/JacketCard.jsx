@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import jacketService from "../services/jacketService";
+import jacketService from "../../services/jacketService";
 
 const JacketCard = ({ orderNo }) => {
   const [jacket, setJacket] = useState(null);

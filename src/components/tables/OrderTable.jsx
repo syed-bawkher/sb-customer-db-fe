@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import orderService from '../services/orderService';
+import orderService from '../../services/orderService';
 import { Table, Input, Space, Button} from 'antd';
 import { FaSearch } from "react-icons/fa";
 import moment from 'moment';
-import CreateOrderButton from '../components/CreateOrderButton';
+import CreateOrderButton from '../buttons/CreateOrderButton';
 
 const OrderTable = ({ customerId }) => {
     const [orders, setOrders] = useState(null);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import shirtService from "../services/shirtService";
+import shirtService from "../../services/shirtService";
 
 const ShirtCard = ({ orderNo }) => {
   const [shirt, setShirt] = useState(null);

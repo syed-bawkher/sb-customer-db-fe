@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Input, message, Spin } from 'antd';
-import customerService from '../services/customerService';
-import CustomerList from './CustomerList';
+import customerService from '../../services/customerService';
+import CustomerList from '../list/CustomerList';
 
 const FindCustomer = () => {
     const { Search } = Input;
