@@ -27,7 +27,7 @@ const PantCard = ({ orderNo }) => {
 
   return (
     <>
-      <div className="bg-slate-700 rounded-lg shadow-lg">
+      <div className="bg-slate-700 rounded-lg shadow-lg text-white">
         <div className="text-lg text-gray-400 px-2 pt-2">Pant Measurements</div>
         <div className="flex flex-col p-2">
           <div className="flex flex-row space-x-2">
