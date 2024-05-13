@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Modal, Button, message, Steps, Form } from "antd";
 import orderService from "../../services/orderService";
+import itemsService from "../../services/itemsService";
 import jacketService from "../../services/jacketService";
 import shirtService from "../../services/shirtService";
 import pantService from "../../services/pantService";
 import moment from "moment";
-import TextArea from "antd/es/input/TextArea";
 import OrderDetailsForm from "../forms/OrderDetailsForm";
 import AddMeasurementsForm from "../forms/AddMeasurementsForm";
+import AddItemsForm from "../forms/AddItemsForm";
 
 const { Step } = Steps;
 
@@ -15,6 +16,11 @@ const CreateOrderModal = ({ isOpen, isCancel, customerid = null }) => {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({});
+  const [visibility, setVisibility] = useState({
+    displayJacketForm: false,
+    displayShirtForm: false,
+    displayPantForm: false,
+  });
 
   //Array of steps for the order creation process
   const steps = [
@@ -22,43 +28,38 @@ const CreateOrderModal = ({ isOpen, isCancel, customerid = null }) => {
     {
       title: "Order Details",
       content: (
-        <>
-          <OrderDetailsForm
-            form={form}
-            formData={formData}
-            setFormData={setFormData}
-          />
-        </>
+        <OrderDetailsForm
+          form={form}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      ),
+    },
+    {
+      title: "Add Items",
+      content: (
+        <AddItemsForm
+          form={form}
+          formData={formData}
+          setFormData={setFormData}
+          setVisibility={setVisibility}
+        />
       ),
     },
     //Step 2: 'Add Measurements'
     {
       title: "Add Measurements",
-      content: (
-        <>
-          <AddMeasurementsForm
-            form={form}
-            formData={formData}
-            setFormData={setFormData}
-          />
-        </>
-      ),
+      content: <AddMeasurementsForm form={form} visibility={visibility} formData={formData} setFormData={setFormData}/>,
     },
   ];
 
   const handleSubmit = async () => {
     try {
-      // Triggering validation for all fields before submitting
-      if (!formData.jacket && !formData.shirt && !formData.pant) {
-        message.error("Please select at least one item to proceed.");
-        return;
-      }
-      
       await form.validateFields();
-
-      const finalValues = form.getFieldsValue(true);
-      const { orderNo, date, note, jacket, shirt, pant } = finalValues;
-      const formattedDate = date ? date.format("YYYY-MM-DD") : undefined;
+      const { orderNo, date, note, items } = form.getFieldsValue(true);
+      const formattedDate = date
+        ? date.format("YYYY-MM-DD")
+        : moment().format("YYYY-MM-DD");
 
       const orderResponse = await orderService.createOrder(customerid, {
         orderNo,
@@ -66,90 +67,80 @@ const CreateOrderModal = ({ isOpen, isCancel, customerid = null }) => {
         note,
       });
 
-      if (!orderResponse.orderNo) {
+      if (!orderResponse.orderNo)
         throw new Error("Order number was not returned.");
+
+      const measurementPromises = items.map((item) => {
+        switch (item.item_type) {
+          case "jacket":
+            return jacketService.createJacketMeasurement(
+              customerid,
+              orderResponse.orderNo,
+              item
+            );
+          case "shirt":
+            return shirtService.createShirtMeasurement(
+              customerid,
+              orderResponse.orderNo,
+              item
+            );
+          case "pant":
+            return pantService.createPantMeasurement(
+              customerid,
+              orderResponse.orderNo,
+              item
+            );
+          default:
+            throw new Error("Unsupported item type");
+        }
+      });
+
+      const measurementResults = await Promise.allSettled(measurementPromises);
+      console.log("Measurement results:", measurementResults);
+
+      const itemsWithMeasurements = items
+        .map((item, index) => {
+          const result = measurementResults[index];
+          if (
+            result.status === "fulfilled" &&
+            result.value &&
+            result.value.measurement_id
+          ) {
+            return {
+              ...item,
+              measurement_id: result.value.measurement_id,
+              orderNo: orderResponse.orderNo,
+            };
+          }
+          return null; // Perhaps log or handle this situation where a measurement failed to create
+        })
+        .filter((item) => item !== null);
+
+      if (itemsWithMeasurements.length !== items.length) {
+        console.log("Mismatch in item measurements", itemsWithMeasurements);
+        throw new Error(
+          "Some items failed to have measurements created properly."
+        );
       }
 
-      const measurementPromises = [];
-      if (jacket) {
-        measurementPromises.push(
-          jacketService.createJacketMeasurement(
-            customerid,
-            orderResponse.orderNo,
-            jacket
-          )
-        );
-      }
-      if (shirt) {
-        measurementPromises.push(
-          shirtService.createShirtMeasurement(
-            customerid,
-            orderResponse.orderNo,
-            shirt
-          )
-        );
-      }
-      if (pant) {
-        measurementPromises.push(
-          pantService.createPantMeasurement(
-            customerid,
-            orderResponse.orderNo,
-            pant
-          )
-        );
-      }
+      await itemsService.createMultipleItems(
+        orderResponse.orderNo,
+        itemsWithMeasurements
+      );
 
-      await Promise.allSettled(measurementPromises);
-      message.success("Order and all measurements created successfully!");
+      message.success("Order, measurements, and items created successfully!");
       form.resetFields();
       setFormData({});
-      isCancel();
+      isCancel(); // Close modal or clear form
     } catch (error) {
-      message.error("Failed to create order: " + error.message);
-      console.error("Error in creating order or measurements: ", error);
+      message.error(`Failed to create order and items: ${error.message}`);
+      console.error("Error in creating order, measurements, or items: ", error);
     }
   };
 
   const handleNext = () => {
-    const stepValidationFields = {
-      0: ["orderNo", "date", "note"], // Fields to validate in the first step
-      1: [], // Placeholder for the second step; specific fields based on checkboxes
-    };
-
-    // Add measurement fields based on checkboxes
-    if (currentStep === 1) {
-      if (formData.jacket) {
-        stepValidationFields[1].push(
-          ...[
-            ["jacket", "jacket_length"],
-            ["jacket", "natural_length"],
-            ["jacket", "back_length"],
-            // Add other jacket fields
-          ]
-        );
-      }
-      if (formData.shirt) {
-        stepValidationFields[1].push(
-          ...[
-            ["shirt", "length"],
-            ["shirt", "half_shoulder"],
-            // Add other shirt fields
-          ]
-        );
-      }
-      if (formData.pant) {
-        stepValidationFields[1].push(
-          ...[
-            ["pant", "length"],
-            ["pant", "waist"],
-            // Add other pant fields
-          ]
-        );
-      }
-    }
-
     form
-      .validateFields(stepValidationFields[currentStep])
+      .validateFields()
       .then(() => {
         setCurrentStep(currentStep + 1);
       })
@@ -174,6 +165,7 @@ const CreateOrderModal = ({ isOpen, isCancel, customerid = null }) => {
         isCancel();
       }}
       footer={null}
+      width="auto"
     >
       <Steps current={currentStep} className="mt-10 px-5">
         {steps.map((item, index) => (
