@@ -71,29 +71,20 @@ const CreateOrderModal = ({ isOpen, isCancel, customerid = null }) => {
         throw new Error("Order number was not returned.");
 
       const measurementPromises = items.map((item) => {
+        // Ensure you pass only the relevant measurement data
+        const measurementData = form.getFieldValue([item.item_type]); // Assuming item_type is 'jacket', 'shirt', or 'pant'
+        console.log("Measurement data for item:", item.item_type, measurementData);
         switch (item.item_type) {
-          case "jacket":
-            return jacketService.createJacketMeasurement(
-              customerid,
-              orderResponse.orderNo,
-              item
-            );
-          case "shirt":
-            return shirtService.createShirtMeasurement(
-              customerid,
-              orderResponse.orderNo,
-              item
-            );
-          case "pant":
-            return pantService.createPantMeasurement(
-              customerid,
-              orderResponse.orderNo,
-              item
-            );
-          default:
-            throw new Error("Unsupported item type");
+            case "jacket":
+                return jacketService.createJacketMeasurement(customerid, orderResponse.orderNo, measurementData);
+            case "shirt":
+                return shirtService.createShirtMeasurement(customerid, orderResponse.orderNo, measurementData);
+            case "pant":
+                return pantService.createPantMeasurement(customerid, orderResponse.orderNo, measurementData);
+            default:
+                throw new Error("Unsupported item type");
         }
-      });
+    });
 
       const measurementResults = await Promise.allSettled(measurementPromises);
       console.log("Measurement results:", measurementResults);

@@ -5,33 +5,42 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
-  // Update visibility when items change
-  useEffect(() => {
-    const items = form.getFieldValue('items') || [];
+  // Function to update visibility based on items
+  const updateVisibility = (_, allValues) => {
+    const items = allValues.items || [];
     setVisibility({
-      displayJacketForm: items.some(item => item.item_type === 'jacket'),
-      displayShirtForm: items.some(item => item.item_type === 'shirt'),
-      displayPantForm: items.some(item => item.item_type === 'pant'),
+      displayJacketForm: items.some((item) => item.item_type === "jacket"),
+      displayShirtForm: items.some((item) => item.item_type === "shirt"),
+      displayPantForm: items.some((item) => item.item_type === "pant"),
     });
-  }, [form, setVisibility]); // Dependency on form and setVisibility function
+  };
+
+  // Function to ensure items have unique keys
+  const getUniqueKey = () => {
+    return new Date().getTime() + Math.random().toString(16).slice(2);
+  };
 
   return (
     <Form
       form={form}
       initialValues={formData}
+      onValuesChange={updateVisibility}
       autoComplete="off"
       layout="vertical"
       className="mt-10"
     >
       <Form.List
         name="items"
-        initialValue={[{ item_type: "jacket" }]} // Default to one item slot
+        initialValue={[{ item_type: "jacket" , key: getUniqueKey()}]} // Default to one item slot
         rules={[{ required: true, message: "At least one item is required" }]}
       >
         {(fields, { add, remove }) => (
           <>
             {fields.map((field, index) => (
-              <div key={field.key} className="grid grid-cols-1 md:grid-cols-9 gap-5">
+              <div
+                key={field.key}
+                className="grid grid-cols-1 md:grid-cols-9 gap-5"
+              >
                 <div className="md:col-span-1 grid justify-items-center">
                   <MinusCircleOutlined
                     onClick={() => remove(field.name)}
@@ -79,7 +88,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
             <Form.Item>
               <Button
                 type="dashed"
-                onClick={() => add({ item_type: "jacket" })} // Default new items to "jacket"
+                onClick={() => add({ item_type: "jacket", key: getUniqueKey()  })} // Default new items to "jacket"
                 block
                 icon={<PlusOutlined />}
               >
