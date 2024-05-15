@@ -5,6 +5,17 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
+  /* 
+  
+  TODO:
+   
+   This component has the following known bugs 
+    * everytime this form is loaded up this error is thrown in the console: 
+        Warning: Encountered two children with the same key, `0`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+
+   */
+
+        
   // Function to update visibility based on items
   const updateVisibility = (_, allValues) => {
     const items = allValues.items || [];
@@ -31,7 +42,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
     >
       <Form.List
         name="items"
-        initialValue={[{ item_type: "jacket" , key: getUniqueKey()}]} // Default to one item slot
+        initialValue={[{ item_type: "jacket", key: getUniqueKey() }]} // Default to one item slot
         rules={[{ required: true, message: "At least one item is required" }]}
       >
         {(fields, { add, remove }) => (
@@ -88,7 +99,9 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
             <Form.Item>
               <Button
                 type="dashed"
-                onClick={() => add({ item_type: "jacket", key: getUniqueKey()  })} // Default new items to "jacket"
+                onClick={() =>
+                  add({ item_type: "jacket", key: getUniqueKey() })
+                } // Default new items to "jacket"
                 block
                 icon={<PlusOutlined />}
               >

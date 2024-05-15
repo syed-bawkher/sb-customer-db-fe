@@ -26,6 +26,21 @@ const itemsService = {
                 throw error;  // Rethrow to ensure error handling continues in the calling context
             });
     },
+    getOrderItems(orderNo) {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${BASE_URL}/items/order/${orderNo}`,
+            headers: {}
+        };
+
+        return axios.request(config)
+            .then(response => response.data)
+            .catch(error => {
+                console.error("Error fetching order items:", error);
+                throw error;  // Rethrow to ensure error handling continues in the calling context
+            });
+    }
 }
 
 export default itemsService;
