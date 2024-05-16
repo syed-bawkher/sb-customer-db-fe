@@ -3,6 +3,12 @@ import { Modal, Input, Form, Button, message } from "antd";
 import customerService from "../../services/customerService";
 import CreateCustomerForm from "../forms/CreateCustomerForm";
 
+/*
+TODO: 
+ Currently shows this warning : 
+  Warning: Instance created by `useForm` is not connected to any Form element. Forget to pass `form` prop?
+ */
+
 const CreateCustomerModal = ({ isOpen, isCancel, customerid = null }) => {
   const [form] = Form.useForm();
 

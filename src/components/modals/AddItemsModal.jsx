@@ -11,13 +11,6 @@ import AddMeasurementsForm from "../forms/AddMeasurementsForm";
 const { Step } = Steps;
 
 const AddItemsModal = ({ isOpen, isCancel, orderNo }) => {
-  /*
-
-    TODO:
-    This Modal Has the following issues:
-    * Customer Id is not being fetched properly and thus the measurement data can not be accurately be passed to the API as it shows null.
-     
-     */
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({});
@@ -29,25 +22,31 @@ const AddItemsModal = ({ isOpen, isCancel, orderNo }) => {
   const [customerId, setCustomerId] = useState(null);
 
   useEffect(() => {
-    const fetchOrderDetails = async () => {
-      try {
-        const orderDetails = await orderService.getOrder(orderNo);
-        if (orderDetails.length > 0) {
-          setCustomerId(orderDetails[0].customer_id);
-        }
-      } catch (error) {
-        message.error("Failed to fetch order details");
-        console.error("Error fetching order details: ", error);
-      }
-    };
-
     if (orderNo) {
+      const fetchOrderDetails = async () => {
+        try {
+          console.log("Fetching order details for orderNo:", orderNo);
+          const orderDetails = await orderService.getOrder(orderNo);
+          if (orderDetails.orderNo == orderNo) {
+            setCustomerId(orderDetails.customer_id);
+            console.log("Customer ID set to:", orderDetails.customer_id);
+          } else {
+            console.error("No order details found for orderNo:", orderNo);
+          }
+        } catch (error) {
+          message.error("Failed to fetch order details");
+          console.error("Error fetching order details:", error);
+        }
+      };
+
       fetchOrderDetails();
+    } else {
+      console.error("OrderNo is missing");
     }
   }, [orderNo]);
 
   useEffect(() => {
-    console.log("Customer ID:", customerId); // Add this line to log the customerId
+    console.log("Customer ID after fetching:", customerId); // Add this line to log the customerId
   }, [customerId]);
 
   const steps = [
@@ -171,7 +170,7 @@ const AddItemsModal = ({ isOpen, isCancel, orderNo }) => {
       isCancel();
     } catch (error) {
       message.error(`Failed to create items: ${error.message}`);
-      console.error("Error in creating items or measurements: ", error);
+      console.error("Error in creating items or measurements:", error);
     }
   };
 
