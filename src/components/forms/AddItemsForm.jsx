@@ -60,6 +60,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </div>
                 <Form.Item
                   {...field}
+                  key={`${field.key}-item_name`}
                   name={[field.name, "item_name"]}
                   rules={[{ required: true, message: "Missing item name" }]}
                   className="col-span-2"
@@ -68,6 +69,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </Form.Item>
                 <Form.Item
                   {...field}
+                  key = {`${field.key}-item_type`}
                   name={[field.name, "item_type"]}
                   rules={[{ required: true, message: "Missing item type" }]}
                   className="col-span-2"
@@ -80,6 +82,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </Form.Item>
                 <Form.Item
                   {...field}
+                  key = {`${field.key}-fabric_name`}
                   name={[field.name, "fabric_name"]}
                   rules={[{ required: true, message: "Missing fabric name" }]}
                   className="col-span-2"
@@ -88,6 +91,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </Form.Item>
                 <Form.Item
                   {...field}
+                  key = {`${field.key}-lining_name`}
                   name={[field.name, "lining_name"]}
                   rules={[{ required: true, message: "Missing lining name" }]}
                   className="col-span-2"

@@ -57,7 +57,7 @@ const ItemsTable = ({ orderNo }) => {
   ];
 
   if (loading) {
-    return <Spin tip="Loading..." />;
+    return <Spin />;
   }
 
   if (error) {
@@ -73,7 +73,7 @@ const ItemsTable = ({ orderNo }) => {
 
   return (
     <div className="items-table">
-      <Table columns={columns} dataSource={data} rowKey="id" className="bg-slate-100 rounded-lg" footer={() => {
+      <Table columns={columns} dataSource={data} rowKey={(record) => record.item_id} className="bg-slate-100 rounded-lg" footer={() => {
         return (
           <div>
             <AddItemsButton orderNo={orderNo} />

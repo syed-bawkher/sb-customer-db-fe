@@ -8,17 +8,15 @@ const AddMeasurementsForm = ({ form, visibility, setFormData, formData }) => {
   const requiredFieldRule = [{ required: true, message: "This field is required." }];
 
   return (
-    <Form
-      form={form}
-    >
+    <Form form={form} initialValues={formData} onValuesChange={(changedValues, allValues) => setFormData(allValues)}>
       {visibility.displayJacketForm && (
-        <JacketForm form={form} isVisible={true} requiredFieldRule={requiredFieldRule} formData={formData} setFormData={setFormData} />
+        <JacketForm requiredFieldRule={requiredFieldRule} />
       )}
       {visibility.displayShirtForm && (
-        <ShirtForm form={form} isVisible={true} requiredFieldRule={requiredFieldRule} formData={formData} setFormData={setFormData}/>
+        <ShirtForm requiredFieldRule={requiredFieldRule} />
       )}
       {visibility.displayPantForm && (
-        <PantForm form={form} isVisible={true} requiredFieldRule={requiredFieldRule} formData={formData} setFormData={setFormData}/>
+        <PantForm requiredFieldRule={requiredFieldRule} />
       )}
     </Form>
   );
