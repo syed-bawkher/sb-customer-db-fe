@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import shirtService from "../../services/shirtService";
+import { Button } from "antd";
 
 const ShirtCard = ({ orderNo }) => {
   const [shirt, setShirt] = useState(null);
@@ -66,6 +67,9 @@ const ShirtCard = ({ orderNo }) => {
         <div className="flex flex-row space-x-2 p-2">
           <div className="text-gray-400 font-light" >Other Notes: </div>
           <div>{shirt.other_notes}</div>
+        </div>
+        <div className="flex flex-row p-2">
+          <Button className="w-full" type="dashed">Edit</Button>
         </div>
       </div>
     </>

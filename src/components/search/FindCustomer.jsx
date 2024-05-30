@@ -28,7 +28,7 @@ const FindCustomer = () => {
       <div>
         <Spin spinning={loading}>
           <Search
-            placeholder="Search by Name or Phone Number"
+            placeholder="Search by Order No Name or Phone Number"
             allowClear
             enterButton="Search"
             onSearch={handleSearch}

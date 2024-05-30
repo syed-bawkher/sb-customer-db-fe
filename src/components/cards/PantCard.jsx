@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import pantService from "../../services/pantService";
+import { Button } from "antd";
 
 const PantCard = ({ orderNo }) => {
   const [pant, setPant] = useState(null);
@@ -58,6 +59,9 @@ const PantCard = ({ orderNo }) => {
         <div className="flex flex-row space-x-2 p-2">
           <div className="text-gray-400 font-light" >Other Notes: </div>
           <div>{pant.other_notes}</div>
+        </div>
+        <div className="flex flex-row p-2">
+          <Button className="w-full" type="dashed">Edit</Button>
         </div>
       </div>
     </>
