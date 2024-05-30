@@ -49,22 +49,6 @@ const ShirtForm = ({ requiredFieldRule }) => {
           <Input className="w-10" />
         </Form.Item>
       </div>
-      <div className="grid grid-flow-row-dense md:grid-cols-2 justify-items-end">
-        <Form.Item
-          name={["shirt", "waist_coat_length"]}
-          label="Waist Coat Length"
-          rules={requiredFieldRule}
-        >
-          <Input className="w-10" />
-        </Form.Item>
-        <Form.Item
-          name={["shirt", "sherwani_length"]}
-          label="Sherwani Length"
-          rules={requiredFieldRule}
-        >
-          <Input className="w-10" />
-        </Form.Item>
-      </div>
       <Form.Item
         name={["shirt", "other_notes"]}
         label="Shirt Notes"

@@ -70,6 +70,20 @@ const JacketForm = ({ requiredFieldRule }) => {
           <Input className="w-10" />
         </Form.Item>
       </div>
+      <div className="grid grid-flow-row-dense md:grid-cols-2 justify-items-end">
+        <Form.Item
+          name={["jacket", "waist_coat_length"]}
+          label="Waist Coat Length"
+        >
+          <Input className="w-10" />
+        </Form.Item>
+        <Form.Item
+          name={["jacket", "sherwani_length"]}
+          label="Sherwani Length"
+        >
+          <Input className="w-10" />
+        </Form.Item>
+      </div>
       <Form.Item
         name={["jacket", "other_notes"]}
         label="Jacket Notes"
