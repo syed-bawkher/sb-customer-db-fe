@@ -41,6 +41,18 @@ const orderService = {
             console.error('Error creating order:', error);
             throw error;
         }
+    },
+
+    deleteOrder: async (orderNo) => {
+        const url = `${BASE_URL}/order/${encodeURIComponent(orderNo)}`;
+        try {
+            const response = await axios.delete(url);
+            console.log(`Order ${orderNo} deleted successfully.`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error deleting order ${orderNo}:`, error);
+            throw error;
+        }
     }
 }
 
