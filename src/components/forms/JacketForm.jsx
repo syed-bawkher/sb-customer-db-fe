@@ -73,7 +73,7 @@ const JacketForm = ({ requiredFieldRule }) => {
       <div className="grid grid-flow-row-dense md:grid-cols-2 justify-items-end">
         <Form.Item
           name={["jacket", "waist_coat_length"]}
-          label="Waist Coat Length"
+          label="Vest Coat Length"
         >
           <Input className="w-10" />
         </Form.Item>

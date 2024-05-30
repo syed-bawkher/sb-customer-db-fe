@@ -114,7 +114,7 @@ const JacketMeasurements = ({ customerId }) => {
       render: (text) => text || "N/A",
     },
     {
-      title: "Waist Coat Length",
+      title: "Vest Coat Length",
       dataIndex: "waist_coat_length",
       key: "waist_coat_length",
       render: (text) => text || "N/A",

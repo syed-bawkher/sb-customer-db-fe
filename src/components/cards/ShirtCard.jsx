@@ -22,7 +22,7 @@ const ShirtCard = ({ orderNo }) => {
     return <></>;
   } 
 
-  if (!shirt.length && !shirt.half_shoulder && !shirt.to_sleeve && !shirt.chest && !shirt.waist && !shirt.collar && !shirt.waist_coat_length && !shirt.sherwani_length && !shirt.other_notes) {
+  if (!shirt.length && !shirt.half_shoulder && !shirt.to_sleeve && !shirt.chest && !shirt.waist && !shirt.collar && !shirt.other_notes) {
     return <></>;
   }
 
@@ -54,14 +54,6 @@ const ShirtCard = ({ orderNo }) => {
           <div className="flex flex-row space-x-2">
             <div className="text-gray-400 font-light" >Collar: </div>
             <div>{shirt.collar}</div>
-          </div>
-          <div className="flex flex-row space-x-2">
-            <div className="text-gray-400 font-light" >Waist Coat Length: </div>
-            <div>{shirt.waist_coat_length}</div>
-          </div>
-          <div className="flex flex-row space-x-2">
-            <div className="text-gray-400 font-light" >Sherwani Length: </div>
-            <div>{shirt.sherwani_length}</div>
           </div>
         </div>
         <div className="flex flex-row space-x-2 p-2">
