@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Form } from "antd";
 
-const CreateCustomerForm = ({form}) => {
+const CreateCustomerForm = ({ form }) => {
   return (
     <Form form={form}>
       <div className="space-y-2 flex flex-col py-2">
@@ -47,11 +47,7 @@ const CreateCustomerForm = ({form}) => {
 
       <div className="space-y-2 flex flex-col py-2">
         <h1 className="text-gray-600 text-lg">Address</h1>
-        <Form.Item
-          label="Line 1"
-          name="add1"
-          rules={[{ required: true, message: "Please Enter Address Line 1" }]}
-        >
+        <Form.Item label="Line 1" name="add1">
           <Input />
         </Form.Item>
         <Form.Item label="Line 2" name="add2">

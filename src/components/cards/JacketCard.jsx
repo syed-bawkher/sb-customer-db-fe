@@ -32,6 +32,8 @@ const JacketCard = ({ orderNo }) => {
     !jacket.x_back &&
     !jacket.half_shoulder &&
     !jacket.to_sleeve &&
+    !jacket.waist_coat_length && 
+    !jacket.sherwani_length && 
     !jacket.other_notes
   ) {
     return <></>;
@@ -81,6 +83,14 @@ const JacketCard = ({ orderNo }) => {
           <div className="flex flex-row space-x-2">
             <div className="text-gray-400 font-light">Collar: </div>
             <div>{jacket.collar}</div>
+          </div>
+          <div className="flex flex-row space-x-2">
+            <div className="text-gray-400 font-light" >Vest Coat Length: </div>
+            <div>{jacket.waist_coat_length}</div>
+          </div>
+          <div className="flex flex-row space-x-2">
+            <div className="text-gray-400 font-light" >Sherwani Length: </div>
+            <div>{jacket.sherwani_length}</div>
           </div>
         </div>
         <div className="flex flex-row space-x-2 p-2">

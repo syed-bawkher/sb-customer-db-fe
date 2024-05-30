@@ -12,8 +12,8 @@ const ShirtMeasurements = ({customerId}) => {
                 let data = await shirtService.getShirtByCustomerId(customerId);
                 // Filter data to remove rows with all null measurements
                 data = data.filter(entry => {
-                    const { length, half_shoulder, to_sleeve, chest, waist, collar, waist_coat_length, sherwani_length,  other_notes} = entry;
-                    return [length, half_shoulder, to_sleeve, chest, waist, collar, waist_coat_length, sherwani_length, other_notes].some(val => val !== null);
+                    const { length, half_shoulder, to_sleeve, chest, waist, collar,  other_notes} = entry;
+                    return [length, half_shoulder, to_sleeve, chest, waist, collar, other_notes].some(val => val !== null);
                   });
                 setShirtData(data);
             } catch (error) {
@@ -69,18 +69,6 @@ const ShirtMeasurements = ({customerId}) => {
             title: 'Collar',
             dataIndex: 'collar',
             key: 'collar',
-            render: text => text || 'N/A'
-        },
-        {
-            title: 'Waist Coat Length',
-            dataIndex: 'waist_coat_length',
-            key: 'waist_coat_length',
-            render: text => text || 'N/A'
-        },
-        {
-            title: 'Sherwani Length',
-            dataIndex: 'sherwani_length',
-            key: 'sherwani_length',
             render: text => text || 'N/A'
         },
         {

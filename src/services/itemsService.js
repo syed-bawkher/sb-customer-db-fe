@@ -30,7 +30,7 @@ const itemsService = {
         const config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `${BASE_URL}/items/order/${orderNo}`,
+            url: `${BASE_URL}/items/order/${encodeURIComponent(orderNo)}`,
             headers: {}
         };
 
