@@ -16,7 +16,6 @@ const PantForm = ({ requiredFieldRule }) => {
         <Form.Item
           name={["pant", "inseem"]}
           label="Pant Inseem"
-          rules={requiredFieldRule}
         >
           <Input className="w-10" />
         </Form.Item>

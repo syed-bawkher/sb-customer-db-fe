@@ -15,7 +15,6 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
 
    */
 
-        
   // Function to update visibility based on items
   const updateVisibility = (_, allValues) => {
     const items = allValues.items || [];
@@ -69,7 +68,7 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </Form.Item>
                 <Form.Item
                   {...field}
-                  key = {`${field.key}-item_type`}
+                  key={`${field.key}-item_type`}
                   name={[field.name, "item_type"]}
                   rules={[{ required: true, message: "Missing item type" }]}
                   className="col-span-2"
@@ -82,22 +81,25 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </Form.Item>
                 <Form.Item
                   {...field}
-                  key = {`${field.key}-fabric_name`}
+                  key={`${field.key}-fabric_name`}
                   name={[field.name, "fabric_name"]}
-                  rules={[{ required: true, message: "Missing fabric name" }]}
+                  rules={[{ required: true, message: "Missing fabric code" }]}
                   className="col-span-2"
                 >
-                  <Input placeholder="Enter fabric name" />
+                  <Input placeholder="Enter fabric code" />
                 </Form.Item>
-                <Form.Item
-                  {...field}
-                  key = {`${field.key}-lining_name`}
-                  name={[field.name, "lining_name"]}
-                  rules={[{ required: true, message: "Missing lining name" }]}
-                  className="col-span-2"
-                >
-                  <Input placeholder="Enter lining name" />
-                </Form.Item>
+                {form.getFieldValue(["items", index, "item_type"]) ===
+                  "jacket" && (
+                  <Form.Item
+                    {...field}
+                    key={`${field.key}-lining_name`}
+                    name={[field.name, "lining_name"]}
+                    rules={[{ required: true, message: "Missing lining code" }]}
+                    className="col-span-2"
+                  >
+                    <Input placeholder="Enter lining code" />
+                  </Form.Item>
+                )}
               </div>
             ))}
             <Form.Item>
