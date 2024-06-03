@@ -2,7 +2,7 @@ import React from "react";
 import { Input, Form } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
-const PantForm = ({ requiredFieldRule }) => {
+const PantForm = ({ requiredFieldRule = null }) => {
   return (
     <>
       <div className="grid grid-flow-row-dense md:grid-cols-3 justify-items-end">

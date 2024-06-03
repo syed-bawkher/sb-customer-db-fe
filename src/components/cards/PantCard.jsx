@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import pantService from "../../services/pantService";
+import EditMeasurementsButton from "../buttons/EditMeasurementsButton";
 import { Button } from "antd";
 
 const PantCard = ({ orderNo }) => {
@@ -61,7 +62,7 @@ const PantCard = ({ orderNo }) => {
           <div>{pant.other_notes}</div>
         </div>
         <div className="flex flex-row p-2">
-          <Button className="w-full" type="dashed">Edit</Button>
+          <EditMeasurementsButton measurementType={"pant"} measurement={pant} />
         </div>
       </div>
     </>
