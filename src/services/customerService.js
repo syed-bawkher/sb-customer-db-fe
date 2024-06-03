@@ -46,6 +46,23 @@ const customerService = {
             console.error('Error updating customer:', error);
             throw error;  // Throws error to be caught where the function is called
         }
+    },
+
+    mergeCustomers: async (customerIds) => {
+        const url = `${BASE_URL}/customers/merge`;
+        const data = { customerIds };
+        try {
+            const response = await axios.post(url, data, {
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                maxBodyLength: Infinity
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error merging customers:', error);
+            throw error;
+        }
     }
 
 
