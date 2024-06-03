@@ -1,6 +1,8 @@
 import React from "react";
+import MergeCustomerButton from "../buttons/MergeCustomerButton";
 
 const CustomerDetailsCard = ({ customer }) => {
+  
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg mt-2">
@@ -40,6 +42,11 @@ const CustomerDetailsCard = ({ customer }) => {
               <div className="font-semibold">Address 4:</div>
               <div>{customer.add4}</div>
             </div>
+          </div>
+        </div>
+        <div className="flex flex-row-reverse">
+          <div className="p-2">
+            <MergeCustomerButton customer_id={customer.customer_id} />
           </div>
         </div>
       </div>
