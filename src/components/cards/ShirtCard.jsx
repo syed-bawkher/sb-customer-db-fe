@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import shirtService from "../../services/shirtService";
+import EditMeasurementsButton from "../buttons/EditMeasurementsButton";
 import { Button } from "antd";
 
 const ShirtCard = ({ orderNo }) => {
@@ -61,7 +62,7 @@ const ShirtCard = ({ orderNo }) => {
           <div>{shirt.other_notes}</div>
         </div>
         <div className="flex flex-row p-2">
-          <Button className="w-full" type="dashed">Edit</Button>
+          <EditMeasurementsButton measurementType={"shirt"} measurement={shirt} />
         </div>
       </div>
     </>

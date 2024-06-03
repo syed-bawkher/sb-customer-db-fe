@@ -35,6 +35,26 @@ const jacketService = {
             console.error('Error creating jacket measurement:', error);
             throw error;
         }
+    },
+    updateJacketMeasurement: async (measurementId, measurementData) => {
+        const url = `${BASE_URL}/jacketMeasurement/${encodeURIComponent(measurementId)}`;
+        const data = JSON.stringify(measurementData);
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: url,
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+        try {
+            const response = await axios.request(config);
+            return response.data;
+        } catch (error) {
+            console.error('Error updating jacket measurement:', error);
+            throw error;
+        }
     }
 
 }
