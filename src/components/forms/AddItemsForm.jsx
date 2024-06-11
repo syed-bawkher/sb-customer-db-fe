@@ -81,8 +81,8 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                 </Form.Item>
                 <Form.Item
                   {...field}
-                  key={`${field.key}-fabric_name`}
-                  name={[field.name, "fabric_name"]}
+                  key={`${field.key}-fabric_id`}
+                  name={[field.name, "fabric_id"]}
                   rules={[{ required: true, message: "Missing fabric code" }]}
                   className="col-span-2"
                 >
@@ -92,8 +92,8 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                   "jacket" && (
                   <Form.Item
                     {...field}
-                    key={`${field.key}-lining_name`}
-                    name={[field.name, "lining_name"]}
+                    key={`${field.key}-lining_fabric_id`}
+                    name={[field.name, "lining_fabric_id"]}
                     rules={[{ required: true, message: "Missing lining code" }]}
                     className="col-span-2"
                   >
