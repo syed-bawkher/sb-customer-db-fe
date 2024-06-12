@@ -155,33 +155,33 @@ const TextileTable = () => {
 
   const columns = [
     {
-      title: 'Fabric ID',
-      dataIndex: 'fabric_id',
-      width: '15%',
-      editable: true,
-    },
-    {
       title: 'Fabric Code',
-      dataIndex: 'fabric_code',
-      width: '15%',
+      dataIndex: 'fabric_id',
+      width: '5%',
       editable: true,
     },
     {
-      title: 'Fabric Name',
+      title: 'Fabric Book No',
+      dataIndex: 'fabric_code',
+      width: '5%',
+      editable: true,
+    },
+    {
+      title: 'Fabric Description',
       dataIndex: 'fabric_name',
       width: '20%',
       editable: true,
     },
     {
-      title: 'Fabric Location',
+      title: 'Stock Location',
       dataIndex: 'fabric_location',
-      width: '20%',
+      width: '5%',
       editable: true,
     },
     {
-      title: 'Fabric Length',
+      title: 'Avalaible Length',
       dataIndex: 'fabric_length',
-      width: '10%',
+      width: '5%',
       editable: true,
     },
     {
@@ -193,26 +193,26 @@ const TextileTable = () => {
     {
       title: 'Fabric Brand',
       dataIndex: 'fabric_brand',
-      width: '20%',
+      width: '10%',
       editable: true,
     },
     {
       title: 'Fabric Purchase Date',
       dataIndex: 'fabric_purchase_date',
-      width: '20%',
+      width: '10%',
       editable: true,
       render: (date) => (date ? moment(date).format('YYYY-MM-DD') : ''),
     },
     {
       title: 'Operation',
       dataIndex: 'operation',
+      width: '10%',
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Typography.Link
               onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
             >
               Save
             </Typography.Link>
@@ -232,7 +232,7 @@ const TextileTable = () => {
               title="Sure to delete?"
               onConfirm={() => handleDelete(record.key)}
             >
-              <a style={{ marginLeft: 8 }}>Delete</a>
+              <a className='text-red-500 p-1'>Delete</a>
             </Popconfirm>
           </span>
         );
