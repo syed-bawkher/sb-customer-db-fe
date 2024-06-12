@@ -35,14 +35,14 @@ const ItemsTable = ({ orderNo }) => {
       key: "item_type",
     },
     {
-      title: "Fabric Name",
-      dataIndex: "fabric_name",
-      key: "fabric_name",
+      title: "Fabric ID",
+      dataIndex: "fabric_id",
+      key: "fabric_id",
     },
     {
-      title: "Lining Name",
-      dataIndex: "lining_name",
-      key: "lining_name",
+      title: "Lining ID",
+      dataIndex: "lining_fabric_id",
+      key: "lining_fabric_id",
     },
     {
         title: "Action",
