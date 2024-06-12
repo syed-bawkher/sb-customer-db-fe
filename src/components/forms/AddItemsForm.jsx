@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select, AutoComplete } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import fabricService from "../../services/fabricService";
 
 const { Option } = Select;
 
 const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
-  /* 
-  
-  TODO:
-   
-   This component has the following known bugs 
-    * everytime this form is loaded up this error is thrown in the console: 
-        Warning: Encountered two children with the same key, `0`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
 
-   */
+  const [fabrics, setFabrics] = useState([]);
+
+  useEffect(() => {
+    const fetchFabrics = async () => {
+      try {
+        const allFabrics = await fabricService.getAllFabrics();
+        setFabrics(allFabrics);
+      } catch (error) {
+        console.error("Failed to fetch fabrics:", error);
+      }
+    };
+
+    fetchFabrics();
+  }, []);
+
+  const getFabricOptions = () =>
+    fabrics.map((fabric) => ({
+      value: fabric.fabric_id,
+      label: `${fabric.fabric_id} - ${fabric.fabric_name} (${fabric.fabric_brand})`,
+    }));
 
   // Function to update visibility based on items
   const updateVisibility = (_, allValues) => {
@@ -86,7 +99,13 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                   rules={[{ required: true, message: "Missing fabric code" }]}
                   className="col-span-2"
                 >
-                  <Input placeholder="Enter fabric code" />
+                  <AutoComplete
+                    options={getFabricOptions()}
+                    placeholder="Enter fabric code"
+                    filterOption={(inputValue, option) =>
+                      option.label.toLowerCase().includes(inputValue.toLowerCase())
+                    }
+                  />
                 </Form.Item>
                 {form.getFieldValue(["items", index, "item_type"]) ===
                   "jacket" && (
@@ -97,7 +116,13 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                     rules={[{ required: true, message: "Missing lining code" }]}
                     className="col-span-2"
                   >
-                    <Input placeholder="Enter lining code" />
+                    <AutoComplete
+                      options={getFabricOptions()}
+                      placeholder="Enter lining code"
+                      filterOption={(inputValue, option) =>
+                        option.label.toLowerCase().includes(inputValue.toLowerCase())
+                      }
+                    />
                   </Form.Item>
                 )}
               </div>

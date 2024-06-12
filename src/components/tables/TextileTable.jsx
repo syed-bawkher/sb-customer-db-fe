@@ -107,8 +107,12 @@ const TextileTable = () => {
         setData(newData);
         setEditingKey('');
 
-        // Update fabric on the server
-        await fabricService.updateFabric(item.fabric_id, row);
+        // Determine whether to create or update
+        if (item.fabric_id.startsWith('New-')) {
+          await fabricService.createFabric(row);
+        } else {
+          await fabricService.updateFabric(item.fabric_id, row);
+        }
       } else {
         newData.push(row);
         setData(newData);
