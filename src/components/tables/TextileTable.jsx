@@ -19,7 +19,7 @@ const EditableCell = ({
   if (inputType === 'number') {
     inputNode = <InputNumber />;
   } else if (inputType === 'date') {
-    inputNode = <DatePicker />;
+    inputNode = <DatePicker format="YYYY-MM-DD" />;
   } else {
     inputNode = <Input />;
   }
@@ -73,15 +73,8 @@ const TextileTable = () => {
 
   const edit = (record) => {
     form.setFieldsValue({
-      fabric_id: '',
-      fabric_code: '',
-      fabric_name: '',
-      fabric_location: '',
-      fabric_length: '',
-      fabric_supplier: '',
-      fabric_brand: '',
-      fabric_purchase_date: '',
       ...record,
+      fabric_purchase_date: record.fabric_purchase_date ? moment(record.fabric_purchase_date, 'YYYY-MM-DD') : null,
     });
     setEditingKey(record.key);
   };
@@ -94,7 +87,9 @@ const TextileTable = () => {
     try {
       const row = await form.validateFields();
       if (row.fabric_purchase_date) {
-        row.fabric_purchase_date = row.fabric_purchase_date.format('YYYY-MM-DD');
+        row.fabric_purchase_date = row.fabric_purchase_date.format
+          ? row.fabric_purchase_date.format('YYYY-MM-DD')
+          : row.fabric_purchase_date;
       }
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
