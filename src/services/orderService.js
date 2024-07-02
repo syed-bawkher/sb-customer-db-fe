@@ -2,11 +2,20 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
 
+// Function to get the bearer token from session storage
+const getBearerToken = () => {
+    return sessionStorage.getItem('bearer_token');
+};
+
 const orderService = {
     findByCustomerId: async (customer_id) => {
         const url = `${BASE_URL}/orders/customer/${customer_id}`;
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
             //console.log('Orders1:' + customer_id, response.data);
             return response.data;
         } catch (error) {
@@ -18,7 +27,11 @@ const orderService = {
     getOrder: async (orderNo) => {
         const url = `${BASE_URL}/order/${encodeURIComponent(orderNo)}`;
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
             //console.log('Order'+ orderNo, response.data);
             return response.data[0];
         } catch (error) {
@@ -35,6 +48,10 @@ const orderService = {
                 orderNo,
                 date,
                 note
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
             });
             return response.data;  // This will now include orderNo
         } catch (error) {
@@ -46,7 +63,11 @@ const orderService = {
     deleteOrder: async (orderNo) => {
         const url = `${BASE_URL}/order/${encodeURIComponent(orderNo)}`;
         try {
-            const response = await axios.delete(url);
+            const response = await axios.delete(url, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
             console.log(`Order ${orderNo} deleted successfully.`);
             return response.data;
         } catch (error) {

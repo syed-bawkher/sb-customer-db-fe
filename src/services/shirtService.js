@@ -2,11 +2,20 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
 
+// Function to get the bearer token from session storage
+const getBearerToken = () => {
+    return sessionStorage.getItem('bearer_token');
+};
+
 const shirtService = {
     getShirtByOrderNo: async (orderNo) => {
         const url = `${BASE_URL}/shirtMeasurement/order/${encodeURIComponent(orderNo)}`;
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
             //console.log('Shirt1:' + orderNo, response.data);
             return response.data[0];
         } catch (error) {
@@ -17,7 +26,11 @@ const shirtService = {
     getShirtByCustomerId: async (customerId) => {
         const url = `${BASE_URL}/shirtMeasurement/customer/${encodeURIComponent(customerId)}`;
         try {
-            const response = await axios.get(url);
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
             console.log('Shirt1:' + customerId, response.data);
             return response.data;
         } catch (error) {
@@ -28,7 +41,11 @@ const shirtService = {
     createShirtMeasurement: async (customerId, orderNo, measurementData) => {
         const url = `${BASE_URL}/shirtMeasurement/${encodeURIComponent(customerId)}/${encodeURIComponent(orderNo)}`;
         try {
-            const response = await axios.post(url, measurementData);
+            const response = await axios.post(url, measurementData, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
             console.log('Shirt:', measurementData);
             return response.data;
         } catch (error) {
@@ -44,7 +61,8 @@ const shirtService = {
             maxBodyLength: Infinity,
             url: url,
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getBearerToken()}`
             },
             data: data
         };

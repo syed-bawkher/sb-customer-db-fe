@@ -2,13 +2,20 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
 
+// Function to get the bearer token from session storage
+const getBearerToken = () => {
+    return sessionStorage.getItem('bearer_token');
+};
+
 const fabricService = {
     getAllFabrics() {
         const config = {
             method: 'get',
             maxBodyLength: Infinity,
             url: `${BASE_URL}/fabrics`,
-            headers: {}
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
         };
 
         return axios.request(config)
@@ -24,7 +31,9 @@ const fabricService = {
             method: 'get',
             maxBodyLength: Infinity,
             url: `${BASE_URL}/fabric/${encodeURIComponent(fabricId)}`,
-            headers: {}
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
         };
 
         return axios.request(config)
@@ -43,7 +52,8 @@ const fabricService = {
             maxBodyLength: Infinity,
             url: `${BASE_URL}/fabric`,
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getBearerToken()}`
             },
             data: data
         };
@@ -64,7 +74,8 @@ const fabricService = {
             maxBodyLength: Infinity,
             url: `${BASE_URL}/fabric/${encodeURIComponent(fabricId)}`,
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getBearerToken()}`
             },
             data: data
         };
@@ -82,7 +93,9 @@ const fabricService = {
             method: 'delete',
             maxBodyLength: Infinity,
             url: `${BASE_URL}/fabric/${encodeURIComponent(fabricId)}`,
-            headers: {}
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
         };
 
         return axios.request(config)
