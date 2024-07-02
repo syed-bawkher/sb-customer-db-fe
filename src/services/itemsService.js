@@ -2,6 +2,11 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
 
+// Function to get the bearer token from session storage
+const getBearerToken = () => {
+    return sessionStorage.getItem('bearer_token');
+};
+
 const itemsService = {
     createMultipleItems(orderNo, items) {
         const data = JSON.stringify({
@@ -14,7 +19,8 @@ const itemsService = {
             maxBodyLength: Infinity,
             url: `${BASE_URL}/items`,
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getBearerToken()}`
             },
             data: data
         };
@@ -31,7 +37,9 @@ const itemsService = {
             method: 'get',
             maxBodyLength: Infinity,
             url: `${BASE_URL}/items/order/${encodeURIComponent(orderNo)}`,
-            headers: {}
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
         };
 
         return axios.request(config)

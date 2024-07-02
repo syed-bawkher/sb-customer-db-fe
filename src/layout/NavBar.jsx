@@ -38,11 +38,9 @@ const NavBar = () => {
 
 export default NavBar
 
-
-/**
- * 
-                 <div className='flex flex-row text-white items-center space-x-2'>
-                    <FaSheetPlastic className='text-2xl' />
-                    <div>Manage Orders</div>
-                </div>
+/*
+    <div className='flex flex-row text-white items-center space-x-2'>
+       <FaSheetPlastic className='text-2xl' />
+       <div>Manage Orders</div>
+    </div>
  */
