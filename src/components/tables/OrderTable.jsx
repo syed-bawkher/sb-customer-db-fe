@@ -86,6 +86,7 @@ const OrderTable = ({ customerId }) => {
       dataIndex: "orderNo",
       key: "orderNo",
       ...getColumnSearchProps("orderNo"), // Spread the search props into the column
+      fixed: "left",
     },
     {
       title: "Date",
@@ -104,6 +105,7 @@ const OrderTable = ({ customerId }) => {
     {
       title: "Action",
       key: "action",
+      fixed: "right",
       render: (_, record) => (
         <Space size="middle">
           <div>
@@ -137,6 +139,9 @@ const OrderTable = ({ customerId }) => {
         className="shadow-lg rounded-lg bg-slate-300"
         dataSource={orders}
         columns={columns}
+        scroll={{
+          x: 500,
+        }}
         rowKey="orderNo"
         footer={() => {
           return (

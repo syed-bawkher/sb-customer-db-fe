@@ -42,7 +42,7 @@ const JacketCard = ({ orderNo }) => {
 
   return (
     <>
-      <div className="bg-slate-700 rounded-lg shadow-lg text-white">
+      <div className="bg-slate-700 rounded-lg shadow-lg text-white flex flex-col justify-between">
         <div>
           <div className="text-lg text-gray-300 px-2 pt-2">
             Jacket Measurements

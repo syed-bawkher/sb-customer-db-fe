@@ -29,8 +29,8 @@ const ShirtCard = ({ orderNo }) => {
 
   return (
     <>
-      <div className="bg-slate-700 rounded-lg shadow-lg text-white">
-        <div className="text-lg text-gray-400 px-2 pt-2">Shirt Measurements</div>
+      <div className="bg-slate-700 rounded-lg shadow-lg text-white flex flex-col justify-between">
+        <div className="text-lg text-gray-300 px-2 pt-2">Shirt Measurements</div>
         <div className="flex flex-col p-2">
           <div className="flex flex-row space-x-2">
             <div className="text-gray-400 font-light" >Length: </div>
