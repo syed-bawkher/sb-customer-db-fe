@@ -3,7 +3,7 @@ import CustomerCard from '../cards/CustomerCard';
 
 const CustomerList = ({customers}) => {
   return (
-    <div className='flex flex-wrap space-y-1 pt-2'>
+    <div className='flex flex-wrap space-y-1 p-1 pt-2'>
     {customers.map(customer => (
         <CustomerCard
             key={customer.customer_id}
