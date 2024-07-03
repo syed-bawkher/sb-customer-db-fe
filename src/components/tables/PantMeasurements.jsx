@@ -31,6 +31,7 @@ const PantMeasurements = ({ customerId }) => {
           title: 'Date',
           dataIndex: 'date',
           key: 'date',
+          fixed: 'left',
           sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(),  // Sorting by Unix timestamp
           sortDirections: ['descend', 'ascend'],  // Default sorting directions
           render: text => moment(text).format('YYYY-MM-DD')
@@ -75,6 +76,7 @@ const PantMeasurements = ({ customerId }) => {
         title: 'Other Notes',
         dataIndex: 'other_notes',
         key: 'other_notes',
+        fixed: 'right',
         render: text => text || 'N/A',
       },
     ];
@@ -86,6 +88,9 @@ const PantMeasurements = ({ customerId }) => {
         className='shadow-lg rounded-lg bg-slate-300'
         dataSource={pantData}
         columns={columns}
+        scroll={{
+          x: 700,
+        }}
         rowKey="measurement_id"
       />
     </div>

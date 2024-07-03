@@ -31,6 +31,7 @@ const ShirtMeasurements = ({customerId}) => {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
+            fixed: 'left',
             sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(),
             sortDirections: ['descend', 'ascend'],
             render: text => moment(text).format('YYYY-MM-DD')
@@ -75,6 +76,7 @@ const ShirtMeasurements = ({customerId}) => {
             title: 'Other Notes',
             dataIndex: 'other_notes',
             key: 'other_notes',
+            fixed: 'right',
             render: text => text || 'N/A'
         }
     ]
@@ -85,6 +87,9 @@ const ShirtMeasurements = ({customerId}) => {
         <Table
             className='shadow-lg rounded-lg bg-slate-300'
             dataSource={shirtData}
+            scroll={{
+                x: 700,
+              }}
             columns={columns}
             rowKey="measurement_id"
         />

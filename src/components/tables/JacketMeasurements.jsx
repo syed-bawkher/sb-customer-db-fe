@@ -54,6 +54,7 @@ const JacketMeasurements = ({ customerId }) => {
     {
       title: "Date",
       dataIndex: "date",
+      fixed: "left",
       key: "date",
       sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(), // Sorting by Unix timestamp
       sortDirections: ["descend", "ascend"], // Default sorting directions
@@ -129,6 +130,7 @@ const JacketMeasurements = ({ customerId }) => {
       title: "Other Notes",
       dataIndex: "other_notes",
       key: "other_notes",
+      fixed: "right",
       render: (text) => text || "N/A",
     },
   ];
@@ -139,6 +141,9 @@ const JacketMeasurements = ({ customerId }) => {
       <Table
         className="shadow-lg rounded-lg bg-slate-300"
         dataSource={jacketData}
+        scroll={{
+          x: 1000,
+        }}
         columns={columns}
         rowKey="measurement_id"
       />

@@ -152,56 +152,54 @@ const TextileTable = () => {
     {
       title: 'Fabric Code',
       dataIndex: 'fabric_id',
-      width: '5%',
       editable: true,
+      fixed: 'left',
     },
     {
       title: 'Fabric Book No',
       dataIndex: 'fabric_code',
-      width: '5%',
       editable: true,
+      fixed: 'left',
     },
     {
       title: 'Fabric Description',
       dataIndex: 'fabric_name',
-      width: '20%',
       editable: true,
     },
     {
       title: 'Stock Location',
       dataIndex: 'fabric_location',
-      width: '5%',
       editable: true,
     },
     {
       title: 'Avalaible Length',
       dataIndex: 'fabric_length',
-      width: '5%',
+      fixed: 'right',
+      fixed: 'left',
       editable: true,
     },
     {
       title: 'Fabric Supplier',
       dataIndex: 'fabric_supplier',
-      width: '20%',
       editable: true,
     },
     {
       title: 'Fabric Brand',
       dataIndex: 'fabric_brand',
-      width: '10%',
+      fixed: 'right',
       editable: true,
     },
     {
       title: 'Fabric Purchase Date',
       dataIndex: 'fabric_purchase_date',
-      width: '10%',
       editable: true,
       render: (date) => (date ? moment(date).format('YYYY-MM-DD') : ''),
     },
     {
       title: 'Operation',
       dataIndex: 'operation',
-      width: '10%',
+      fixed: 'right',
+
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -275,6 +273,9 @@ const TextileTable = () => {
           },
         }}
         bordered
+        scroll={{
+          x: 700,
+        }}
         dataSource={data}
         columns={mergedColumns}
         rowClassName="editable-row"
