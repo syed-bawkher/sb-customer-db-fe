@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
     };
 
     checkToken();
-  }, []);
+  }, [children]);
 
   if (isValidToken === null) {
     // You can show a loading spinner or some other placeholder here
