@@ -3,13 +3,15 @@ import FindCustomer from "../components/search/FindCustomer";
 import CreateCustomerButton from "../components/buttons/CreateCustomerButton";
 const HomePage = () => {
   return (
-    <div>
-      <h1 className="font-bold text-xl">Find Customer</h1>
-      <div className="flex flex-row pl-2 pt-2">
-        <div className="w-1/2">
-          <FindCustomer />
+    <div className="flex justify-center mt-[80px]">
+      <div className="flex flex-col">
+        <h1 className="font-bold text-3xl">Find Customer</h1>
+        <div className="flex flex-row pt-2">
+          <div className="w-[500px]">
+            <FindCustomer />
+          </div>
+          <CreateCustomerButton />
         </div>
-        <CreateCustomerButton />
       </div>
     </div>
   );
