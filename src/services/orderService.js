@@ -81,7 +81,7 @@ const orderService = {
   },
 
   getPresignedUrl: async (orderNo, filename) => {
-    const url = `${BASE_URL}/order/${orderNo}/upload-photo`;
+    const url = `${BASE_URL}/order/${encodeURIComponent(orderNo)}/upload-photo`;
     try {
       const response = await axios.post(
         url,
@@ -100,7 +100,7 @@ const orderService = {
   },
 
   getOrderPhotos: async (orderNo) => {
-    const url = `${BASE_URL}/order/${orderNo}/photos`;
+    const url = `${BASE_URL}/order/${encodeURIComponent(orderNo)}/photos`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -115,7 +115,7 @@ const orderService = {
   },
 
   deletePhoto: async (orderNo, s3Key) => {
-    const url = `${BASE_URL}/order/${orderNo}/photo`;
+    const url = `${BASE_URL}/order/${encodeURIComponent(orderNo)}/photo`;
     try {
       const response = await axios.delete(url, {
         data: { s3Key },
