@@ -25,11 +25,11 @@ const AddItemsModal = ({ isOpen, isCancel, orderNo }) => {
     if (orderNo) {
       const fetchOrderDetails = async () => {
         try {
-          console.log("Fetching order details for orderNo:", orderNo);
+          //console.log("Fetching order details for orderNo:", orderNo);
           const orderDetails = await orderService.getOrder(orderNo);
           if (orderDetails.orderNo == orderNo) {
             setCustomerId(orderDetails.customer_id);
-            console.log("Customer ID set to:", orderDetails.customer_id);
+            //console.log("Customer ID set to:", orderDetails.customer_id);
           } else {
             console.error("No order details found for orderNo:", orderNo);
           }
@@ -46,7 +46,7 @@ const AddItemsModal = ({ isOpen, isCancel, orderNo }) => {
   }, [orderNo]);
 
   useEffect(() => {
-    console.log("Customer ID after fetching:", customerId); // Add this line to log the customerId
+    //console.log("Customer ID after fetching:", customerId); // Add this line to log the customerId
   }, [customerId]);
 
   const steps = [

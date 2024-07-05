@@ -5,6 +5,7 @@ import PantCard from "../components/cards/PantCard";
 import ShirtCard from "../components/cards/ShirtCard";
 import orderService from "../services/orderService";
 import ItemsTable from "../components/tables/ItemsTable";
+import OrderPhotoCard from "../components/cards/OrderPhotoCard";
 
 const OrderDetails = () => {
   const { orderNo } = useParams();
@@ -36,6 +37,9 @@ const OrderDetails = () => {
       <div className="pt-10">
         <div>Order Notes</div>
         <div>{order ? order.onote || "No additional notes" : "Loading notes..."}</div>
+      </div>
+      <div className="pt-2">
+        <OrderPhotoCard orderNo={orderNo} />
       </div>
       <div className="pt-2">
         <ItemsTable orderNo={orderNo} />
