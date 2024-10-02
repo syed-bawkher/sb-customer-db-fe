@@ -7,6 +7,8 @@ import TextileDetails from "./pages/TextileDetails";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./layout/PrivateRoute";
 import "./App.css";
+import FabricDetails from "./pages/FabricDetails";
+import SupplierDetails from "./pages/SupplierDetails";
 
 function App() {
   return (
@@ -42,6 +44,22 @@ function App() {
             element={
               <PrivateRoute>
                 <TextileDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="suppliers"
+            element={
+              <PrivateRoute>
+                <SupplierDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="fabric/:fabricId"
+            element={
+              <PrivateRoute>
+                <FabricDetails />
               </PrivateRoute>
             }
           />

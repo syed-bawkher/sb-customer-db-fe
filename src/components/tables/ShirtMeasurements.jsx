@@ -83,7 +83,7 @@ const ShirtMeasurements = ({customerId}) => {
 
   return (
     <>
-        <h1 className="text-lg font-bold text-gray-300">Shirt</h1>
+        <h1 className="text-lg font-bold text-gray-600">Shirt</h1>
         <Table
             className='shadow-lg rounded-lg bg-slate-300'
             dataSource={shirtData}

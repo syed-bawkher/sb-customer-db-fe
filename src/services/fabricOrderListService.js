@@ -7,17 +7,66 @@ const getBearerToken = () => {
     return sessionStorage.getItem('bearer_token');
 };
 
-const itemsService = {
-    createMultipleItems(orderNo, items) {
-        const data = JSON.stringify({
-            orderNo,
-            items
-        });
+const fabricOrderService = {
+    getAllFabricOrders() {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${BASE_URL}/fabric-orders`,
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
+        };
 
+        return axios.request(config)
+            .then(response => response.data)
+            .catch(error => {
+                console.error("Error fetching fabric orders:", error);
+                throw error;  // Rethrow to ensure error handling continues in the calling context
+            });
+    },
+
+    getFabricOrderById(orderId) {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${BASE_URL}/fabric-order/${encodeURIComponent(orderId)}`,
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
+        };
+
+        return axios.request(config)
+            .then(response => response.data)
+            .catch(error => {
+                console.error("Error fetching fabric order by ID:", error);
+                throw error;  // Rethrow to ensure error handling continues in the calling context
+            });
+    },
+
+    getFabricOrdersByFabricCode(fabricCode) {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${BASE_URL}/fabric-orders/code/${encodeURIComponent(fabricCode)}`,
+            headers: {
+                'Authorization': `Bearer ${getBearerToken()}`
+            }
+        };
+        
+        return axios.request(config).then(response => response.data)
+            .catch(error => {
+                console.error("Error fetching fabric orders by fabric code:", error);
+                throw error;  // Rethrow to ensure error handling continues in the calling context
+            });
+    },
+
+    createFabricOrder(order) {
+        const data = JSON.stringify(order);
         const config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${BASE_URL}/items`,
+            url: `${BASE_URL}/fabric-order`,
             headers: { 
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getBearerToken()}`
@@ -28,16 +77,38 @@ const itemsService = {
         return axios.request(config)
             .then(response => response.data)
             .catch(error => {
-                console.error("Error posting items:", error);
+                console.error("Error creating fabric order:", error);
                 throw error;  // Rethrow to ensure error handling continues in the calling context
             });
     },
 
-    getOrderItems(orderNo) {
+    updateFabricOrder(orderId, fields) {
+        const data = JSON.stringify(fields);
+
         const config = {
-            method: 'get',
+            method: 'put',
             maxBodyLength: Infinity,
-            url: `${BASE_URL}/items/order/${encodeURIComponent(orderNo)}`,
+            url: `${BASE_URL}/fabric-order/${encodeURIComponent(orderId)}`,
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getBearerToken()}`
+            },
+            data: data
+        };
+
+        return axios.request(config)
+            .then(response => response.data)
+            .catch(error => {
+                console.error("Error updating fabric order:", error);
+                throw error;  // Rethrow to ensure error handling continues in the calling context
+            });
+    },
+
+    deleteFabricOrder(orderId) {
+        const config = {
+            method: 'delete',
+            maxBodyLength: Infinity,
+            url: `${BASE_URL}/fabric-order/${encodeURIComponent(orderId)}`,
             headers: {
                 'Authorization': `Bearer ${getBearerToken()}`
             }
@@ -46,94 +117,10 @@ const itemsService = {
         return axios.request(config)
             .then(response => response.data)
             .catch(error => {
-                console.error("Error fetching order items:", error);
-                throw error;  // Rethrow to ensure error handling continues in the calling context
-            });
-    },
-
-    createJacket(orderNo, item_name, jacket_measurement_id, fabric_id, lining_fabric_id) {
-        const data = JSON.stringify({
-            orderNo,
-            item_name,
-            jacket_measurement_id,
-            fabric_id,
-            lining_fabric_id
-        });
-
-        const config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: `${BASE_URL}/item/jacket`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getBearerToken()}`
-            },
-            data: data
-        };
-
-        return axios.request(config)
-            .then(response => response.data)
-            .catch(error => {
-                console.error("Error creating jacket:", error);
-                throw error;  // Rethrow to ensure error handling continues in the calling context
-            });
-    },
-
-    createShirt(orderNo, item_name, shirt_measurement_id, fabric_id, lining_fabric_id) {
-        const data = JSON.stringify({
-            orderNo,
-            item_name,
-            shirt_measurement_id,
-            fabric_id,
-            lining_fabric_id
-        });
-
-        const config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: `${BASE_URL}/item/shirt`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getBearerToken()}`
-            },
-            data: data
-        };
-
-        return axios.request(config)
-            .then(response => response.data)
-            .catch(error => {
-                console.error("Error creating shirt:", error);
-                throw error;  // Rethrow to ensure error handling continues in the calling context
-            });
-    },
-
-    createPant(orderNo, item_name, pant_measurement_id, fabric_id, lining_fabric_id) {
-        const data = JSON.stringify({
-            orderNo,
-            item_name,
-            pant_measurement_id,
-            fabric_id,
-            lining_fabric_id
-        });
-
-        const config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: `${BASE_URL}/item/pant`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getBearerToken()}`
-            },
-            data: data
-        };
-
-        return axios.request(config)
-            .then(response => response.data)
-            .catch(error => {
-                console.error("Error creating pant:", error);
+                console.error("Error deleting fabric order:", error);
                 throw error;  // Rethrow to ensure error handling continues in the calling context
             });
     }
 }
 
-export default itemsService;
+export default fabricOrderService;

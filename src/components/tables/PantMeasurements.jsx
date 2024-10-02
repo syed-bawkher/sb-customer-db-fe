@@ -83,7 +83,7 @@ const PantMeasurements = ({ customerId }) => {
 
   return (
     <div>
-      <h1 className="text-lg font-bold text-gray-300">Trouser</h1>
+      <h1 className="text-lg font-bold text-gray-600">Trouser</h1>
       <Table
         className='shadow-lg rounded-lg bg-slate-300'
         dataSource={pantData}
