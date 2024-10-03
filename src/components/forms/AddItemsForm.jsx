@@ -96,7 +96,6 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                   {...field}
                   key={`${field.key}-fabric_id`}
                   name={[field.name, "fabric_id"]}
-                  rules={[{ required: true, message: "Missing fabric code" }]}
                   className="col-span-2"
                 >
                   <AutoComplete
@@ -113,7 +112,6 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                     {...field}
                     key={`${field.key}-lining_fabric_id`}
                     name={[field.name, "lining_fabric_id"]}
-                    rules={[{ required: true, message: "Missing lining code" }]}
                     className="col-span-2"
                   >
                     <AutoComplete

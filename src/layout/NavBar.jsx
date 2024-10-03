@@ -19,7 +19,7 @@ const NavBar = () => {
     <>
         <Header className='flex flex-row justify-between' >
             <div style={{ color: 'white', fontSize: 20, marginLeft: 20 }}>
-                SB Managment Portal
+                Syed Bawkher CRM
             </div>
             <div className='flex flex-row items-center space-x-5'>
                 <div className='flex flex-row text-white items-center space-x-2' onClick={handleManageCustomersClick}>
@@ -28,7 +28,7 @@ const NavBar = () => {
                 </div>
                 <div className='flex flex-row text-white items-center space-x-2' onClick={handleManageTextileClick}>
                     <FaWarehouse className='text-2xl' />
-                    <div>Manage Textile</div>
+                    <div>Manage Inventory</div>
                 </div>
             </div>
         </Header>
