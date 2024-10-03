@@ -52,16 +52,6 @@ const AddTextileForm = ({ onSuccess }) => {
         </Form.Item>
 
         <Form.Item
-          label="Fabric Supplier"
-          name="fabric_supplier"
-          rules={[
-            { required: true, message: "Please input the fabric supplier!" },
-          ]}
-        >
-          <Input placeholder="Enter fabric supplier name" />
-        </Form.Item>
-
-        <Form.Item
           label="Fabric Brand"
           name="fabric_brand"
           rules={[
@@ -74,25 +64,13 @@ const AddTextileForm = ({ onSuccess }) => {
         <Form.Item
           label="Stock Location"
           name="stock_location"
-          rules={[
-            { required: true, message: "Please input the stock location!" },
-          ]}
         >
           <Input placeholder="Enter stock location" />
         </Form.Item>
 
         <Form.Item
-          label="Image URL"
-          name="image"
-          rules={[{ required: true, message: "Please input the image URL!" }]}
-        >
-          <Input placeholder="Enter image URL" />
-        </Form.Item>
-
-        <Form.Item
           label="Barcode"
           name="barcode"
-          rules={[{ required: true, message: "Please input the barcode!" }]}
         >
           <Input placeholder="Enter barcode string" />
         </Form.Item>
