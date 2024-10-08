@@ -63,8 +63,11 @@ const FabricCard = ({ fabric }) => {
   return (
     <div className="flex flex-row bg-white shadow-lg rounded-lg p-4 justify-between">
       <div className="flex flex-col">
-        <div className="flex flex-row space-x-2">
-          <div className="text-lg font-bold mb-2">{fabric.description}</div>
+        <div className="flex flex-row space-x-5">
+          <div className="flex flex-col space-y-0 mb-2">
+            <div className="text-lg font-bold">{fabric.fabric_code}</div>
+            <div className="text-sm font-extrabold text-gray-400">{fabric.description}</div>
+          </div>
           <div onClick={showDeleteConfirm}>
             <DeleteOutlined className="text-red-500 hover:text-red-300 transition-colors" />
           </div>
@@ -74,9 +77,6 @@ const FabricCard = ({ fabric }) => {
         </div>
         <div className="text-md mb-2">
           <strong>Available Length:</strong> {fabric.available_length} meters
-        </div>
-        <div className="text-md mb-2">
-          <strong>Supplier:</strong> {fabric.fabric_supplier}
         </div>
         <div className="text-md mb-2">
           <strong>Brand:</strong> {fabric.fabric_brand}
