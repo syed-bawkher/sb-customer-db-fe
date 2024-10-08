@@ -29,9 +29,13 @@ const TextileTable = () => {
 
   const columns = [
     {
-      title: 'Fabric Code',
+      title: 'Fabric Id',
       dataIndex: 'fabric_id',
       fixed: 'left',
+    },
+    {
+      title: 'Fabric Code',
+      dataIndex: 'fabric_code',
     },
     {
       title: 'Description',
@@ -42,24 +46,12 @@ const TextileTable = () => {
       dataIndex: 'available_length',
     },
     {
-      title: 'Supplier',
-      dataIndex: 'fabric_supplier',
-    },
-    {
       title: 'Brand',
       dataIndex: 'fabric_brand',
     },
     {
       title: 'Stock Location',
       dataIndex: 'stock_location',
-    },
-    {
-      title: 'Image URL',
-      dataIndex: 'image',
-    },
-    {
-      title: 'Barcode',
-      dataIndex: 'barcode',
     },
     {
       title: 'Operation',

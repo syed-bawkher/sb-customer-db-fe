@@ -53,17 +53,17 @@ const AddFabricPurchaseOrderForm = ({ onSuccess, fabricId }) => {
       layout="vertical"
       onFinish={onFinish}
       initialValues={{
-        fabric_code: fabricId || '', // Pre-fill fabric_code if fabricId is provided
+        fabric_id: fabricId || '', // Pre-fill fabric_id if fabricId is provided
         ordered_date: moment(), // Set default value to today's date
       }}
     >
       <Form.Item
-        label="Fabric Code"
-        name="fabric_code"
-        rules={[{ required: true, message: 'Please input the fabric code!' }]}
+        label="Fabric ID"
+        name="fabric_id"
+        rules={[{ required: true, message: 'Please input the fabric Id!' }]}
       >
         <Input 
-          placeholder="Enter fabric code" 
+          placeholder="Enter fabric ID" 
           disabled={!!fabricId} 
           value={fabricId ? fabricId : undefined} // Set value as fabricId only if it is provided
         />
