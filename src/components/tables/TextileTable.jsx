@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import fabricService from '../../services/fabricService';
 
 const TextileTable = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -25,6 +26,22 @@ const TextileTable = () => {
 
   const handleView = (fabricId) => {
     navigate(`/fabric/${fabricId}`);
+  };
+
+  const handleSearch = async (value) => {
+    setSearchLoading(true);
+    if (value) {
+      try {
+        const results = await fabricService.searchFabrics(value);
+        setData(results.map((fabric, index) => ({ ...fabric, key: index.toString() })));
+      } catch (error) {
+        console.error('Failed to search fabrics:', error);
+      }
+    } else {
+      // If search query is empty, fetch all fabrics
+      await fetchData();
+    }
+    setSearchLoading(false);
   };
 
   const columns = [
@@ -59,10 +76,7 @@ const TextileTable = () => {
       fixed: 'right',
       render: (_, record) => (
         <span>
-          <Button
-            type="link"
-            onClick={() => handleView(record.fabric_id)}
-          >
+          <Button type="link" onClick={() => handleView(record.fabric_id)}>
             View
           </Button>
         </span>
@@ -72,14 +86,20 @@ const TextileTable = () => {
 
   return (
     <div>
+      <Input.Search
+        placeholder="Search fabrics"
+        enterButton
+        onSearch={handleSearch}
+        style={{ marginBottom: 16, width: '100%' }}
+      />
       <Table
         bordered
-        className='bg-white rounded-lg shadow-lg'
+        className="bg-white rounded-lg shadow-lg"
         scroll={{ x: 1300 }}
         dataSource={data}
         columns={columns}
         rowClassName="editable-row"
-        loading={loading}
+        loading={loading || searchLoading}
       />
     </div>
   );
