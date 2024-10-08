@@ -6,27 +6,26 @@ import fabricService from "../../services/fabricService";
 const { Option } = Select;
 
 const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
+  const [fabricOptions, setFabricOptions] = useState([]);
+  const [liningOptions, setLiningOptions] = useState([]);
 
-  const [fabrics, setFabrics] = useState([]);
-
-  useEffect(() => {
-    const fetchFabrics = async () => {
-      try {
-        const allFabrics = await fabricService.getAllFabrics();
-        setFabrics(allFabrics);
-      } catch (error) {
-        console.error("Failed to fetch fabrics:", error);
-      }
-    };
-
-    fetchFabrics();
-  }, []);
-
-  const getFabricOptions = () =>
-    fabrics.map((fabric) => ({
-      value: fabric.fabric_id,
-      label: `${fabric.fabric_id} - ${fabric.fabric_name} (${fabric.fabric_brand})`,
-    }));
+  // Function to fetch fabrics based on search query
+  const fetchFabrics = async (query, setOptionsCallback) => {
+    if (!query) {
+      setOptionsCallback([]); // Reset options if the query is empty
+      return;
+    }
+    try {
+      const results = await fabricService.searchFabrics(query);
+      const options = results.map((fabric) => ({
+        value: fabric.fabric_id,
+        label: `${fabric.fabric_id} - ${fabric.fabric_brand} (${fabric.fabric_code})`,
+      }));
+      setOptionsCallback(options);
+    } catch (error) {
+      console.error("Failed to search fabrics:", error);
+    }
+  };
 
   // Function to update visibility based on items
   const updateVisibility = (_, allValues) => {
@@ -99,11 +98,10 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                   className="col-span-2"
                 >
                   <AutoComplete
-                    options={getFabricOptions()}
+                    options={fabricOptions}
+                    onSearch={(value) => fetchFabrics(value, setFabricOptions)} // Call search API
                     placeholder="Enter fabric code"
-                    filterOption={(inputValue, option) =>
-                      option.label.toLowerCase().includes(inputValue.toLowerCase())
-                    }
+                    filterOption={false} // Disable default filtering for custom search
                   />
                 </Form.Item>
                 {form.getFieldValue(["items", index, "item_type"]) ===
@@ -115,11 +113,12 @@ const AddItemsForm = ({ form, formData, setFormData, setVisibility }) => {
                     className="col-span-2"
                   >
                     <AutoComplete
-                      options={getFabricOptions()}
+                      options={liningOptions}
+                      onSearch={(value) =>
+                        fetchFabrics(value, setLiningOptions)
+                      } // Call search API for linings
                       placeholder="Enter lining code"
-                      filterOption={(inputValue, option) =>
-                        option.label.toLowerCase().includes(inputValue.toLowerCase())
-                      }
+                      filterOption={false} // Disable default filtering for custom search
                     />
                   </Form.Item>
                 )}

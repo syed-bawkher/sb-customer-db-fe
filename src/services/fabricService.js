@@ -48,6 +48,26 @@ const fabricService = {
       });
   },
 
+  // Search fabrics by query
+  searchFabrics(query) {
+    const config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${BASE_URL}/fabrics/search?query=${encodeURIComponent(query)}`, // Updated route for search
+      headers: {
+        Authorization: `Bearer ${getBearerToken()}`,
+      },
+    };
+
+    return axios
+      .request(config)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error("Error searching fabrics:", error);
+        throw error; // Rethrow to ensure error handling continues in the calling context
+      });
+  },
+
   // Create a new fabric
   createFabric(fabric) {
     const data = JSON.stringify(fabric);
@@ -115,24 +135,30 @@ const fabricService = {
         throw error; // Rethrow to ensure error handling continues in the calling context
       });
   },
+
   // Gets the presigned URL for uploading an image for a fabric to the S3 bucket
   getPresignedUrl: async (fabricId, filename) => {
-    const url =  `${BASE_URL}/fabric/${encodeURIComponent(fabricId)}/upload-image`;
+    const url = `${BASE_URL}/fabric/${encodeURIComponent(
+      fabricId
+    )}/upload-image`;
 
-    try{
-      const response = await axios.post(url, { filename }, 
+    try {
+      const response = await axios.post(
+        url,
+        { filename },
         {
-        headers: {
-          Authorization: `Bearer ${getBearerToken()}`,
-        },
-      }
-    );
-    return response.data;
+          headers: {
+            Authorization: `Bearer ${getBearerToken()}`,
+          },
+        }
+      );
+      return response.data;
     } catch (error) {
       console.error("Error getting presigned URL:", error);
       throw error;
     }
   },
+
   // Gets the image URL for a fabric
   getFabricImageUrl: async (fabricId) => {
     const config = {
@@ -152,6 +178,7 @@ const fabricService = {
         throw error;
       });
   },
+
   // Deletes the image for a fabric
   deleteFabricImage: async (fabricId) => {
     const config = {

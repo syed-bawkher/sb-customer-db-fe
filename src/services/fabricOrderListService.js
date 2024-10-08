@@ -44,11 +44,11 @@ const fabricOrderService = {
             });
     },
 
-    getFabricOrdersByFabricCode(fabricCode) {
+    getFabricOrdersByFabricCode(fabricId) {
         const config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `${BASE_URL}/fabric-orders/code/${encodeURIComponent(fabricCode)}`,
+            url: `${BASE_URL}/fabric-orders/fabricId/${encodeURIComponent(fabricId)}`,
             headers: {
                 'Authorization': `Bearer ${getBearerToken()}`
             }

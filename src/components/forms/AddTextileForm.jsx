@@ -22,11 +22,11 @@ const AddTextileForm = ({ onSuccess }) => {
     <div>
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Form.Item
-          label="Fabric ID"
-          name="fabric_id"
-          rules={[{ required: true, message: "Please input the fabric ID!" }]}
+          label="Fabric Code"
+          name="fabric_code"
+          rules={[{ required: true, message: "Please input the fabric Code!" }]}
         >
-          <Input placeholder="Enter fabric ID" />
+          <Input placeholder="Enter fabric Code" />
         </Form.Item>
 
         <Form.Item
@@ -66,13 +66,6 @@ const AddTextileForm = ({ onSuccess }) => {
           name="stock_location"
         >
           <Input placeholder="Enter stock location" />
-        </Form.Item>
-
-        <Form.Item
-          label="Barcode"
-          name="barcode"
-        >
-          <Input placeholder="Enter barcode string" />
         </Form.Item>
 
         <Form.Item>
