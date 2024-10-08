@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "antd";
 import fabricOrderService from "../../services/fabricOrderListService";
 import AddFabricPurchaseOrderButton from "../buttons/AddFabricPurchaseOrderButton";
+import moment from "moment";
 
 const FabricOrderListTable = ({ fabricId }) => {
   const [orders, setOrders] = useState([]);
@@ -32,11 +33,6 @@ const FabricOrderListTable = ({ fabricId }) => {
       key: "order_id",
     },
     {
-      title: "Fabric Code",
-      dataIndex: "fabric_code",
-      key: "fabric_code",
-    },
-    {
       title: "Description",
       dataIndex: "description",
       key: "description",
@@ -55,6 +51,7 @@ const FabricOrderListTable = ({ fabricId }) => {
       title: "Ordered Date",
       dataIndex: "ordered_date",
       key: "ordered_date",
+      render: (text) => moment(text).format("MMM D, YYYY"),
     },
     {
       title: "Ordered For",
