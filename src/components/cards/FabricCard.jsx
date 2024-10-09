@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import fabricService from "../../services/fabricService";
 import {
   InboxOutlined,
@@ -6,10 +7,12 @@ import {
   ExclamationCircleOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { message, Upload, Modal, Button } from "antd";
+import { IoMdBarcode } from "react-icons/io";
+import { message, Upload, Modal, Button, Tooltip } from "antd";
 import FabricImage from "./FabricImage";
 import { useNavigate } from "react-router-dom";
 import EditTextileModal from "../modals/EditTextileModal";
+import Barcode from "react-barcode";
 
 const FabricCard = ({ fabric }) => {
   const navigate = useNavigate();
@@ -19,9 +22,14 @@ const FabricCard = ({ fabric }) => {
   const [fabricData, setFabricData] = useState(fabric);
   const { confirm } = Modal;
 
+  // Create the contentRef for react-to-print
+  const contentRef = useRef(null);
+
   const fetchImageUrl = async () => {
     try {
-      const result = await fabricService.getFabricImageUrl(fabricData.fabric_id);
+      const result = await fabricService.getFabricImageUrl(
+        fabricData.fabric_id
+      );
       setImageUrl(result.url);
     } catch (error) {
       console.error("Error fetching fabric image URL:", error);
@@ -65,26 +73,55 @@ const FabricCard = ({ fabric }) => {
     setFabricData(updatedFabric);
   };
 
+  // Print handler using contentRef
+  const handlePrint = useReactToPrint({
+    contentRef,
+    pageStyle: `
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    `,
+  });
+
   return (
     <div className="flex flex-row bg-white shadow-lg rounded-lg p-4 justify-between">
       <div className="flex flex-col">
         <div className="flex flex-row space-x-5">
           <div className="flex flex-col space-y-0 mb-2">
             <div className="text-lg font-bold">{fabricData.fabric_code}</div>
-            <div className="text-sm font-extrabold text-gray-400">{fabricData.description}</div>
+            <div className="text-sm font-extrabold text-gray-400">
+              {fabricData.description}
+            </div>
           </div>
-          <div onClick={() => setIsEditModalVisible(true)}>
-            <EditOutlined className="text-blue-500 hover:text-blue-300 transition-colors" />
-          </div>
-          <div onClick={showDeleteConfirm}>
-            <DeleteOutlined className="text-red-500 hover:text-red-300 transition-colors" />
+          <div className="">
+            <div className="flex flex-row space-x-2 items-center">
+              <div onClick={() => setIsEditModalVisible(true)}>
+                <Tooltip title="Edit Fabric">
+                  <EditOutlined className="text-blue-500 hover:text-blue-300 transition-colors" />
+                </Tooltip>
+              </div>
+              <div onClick={handlePrint}>
+                <Tooltip title="Print Barcode">
+                  <IoMdBarcode className="text-green-500 hover:text-green-300 transition-colors" />
+                </Tooltip>
+              </div>
+              <div onClick={showDeleteConfirm}>
+                <Tooltip title="Delete Fabric">
+                  <DeleteOutlined className="text-red-500 hover:text-red-300 transition-colors" />
+                </Tooltip>
+              </div>
+            </div>
           </div>
         </div>
         <div className="text-md mb-2">
           <strong>ID:</strong> {fabricData.fabric_id}
         </div>
         <div className="text-md mb-2">
-          <strong>Available Length:</strong> {fabricData.available_length} meters
+          <strong>Available Length:</strong> {fabricData.available_length}{" "}
+          meters
         </div>
         <div className="text-md mb-2">
           <strong>Brand:</strong> {fabricData.fabric_brand}
@@ -93,7 +130,15 @@ const FabricCard = ({ fabric }) => {
           <strong>Stock Location:</strong> {fabricData.stock_location}
         </div>
         <div className="text-md mb-2">
-          <strong>Barcode:</strong> {fabricData.barcode}
+          <div ref={contentRef}>
+            <Barcode
+              value={fabricData.fabric_id.toString()}
+              width={2}
+              height={40}
+              fontSize={12}
+              margin={0}
+            />
+          </div>
         </div>
       </div>
       <div className="text-md mb-2">
