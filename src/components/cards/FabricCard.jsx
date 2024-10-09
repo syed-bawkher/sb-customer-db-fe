@@ -4,37 +4,40 @@ import {
   InboxOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { message, Upload, Modal, Button } from "antd";
-import FabricImage from "./FabricImage"; // Import the new component
+import FabricImage from "./FabricImage";
 import { useNavigate } from "react-router-dom";
+import EditTextileModal from "../modals/EditTextileModal";
 
 const FabricCard = ({ fabric }) => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [fabricData, setFabricData] = useState(fabric);
   const { confirm } = Modal;
 
   const fetchImageUrl = async () => {
     try {
-      const result = await fabricService.getFabricImageUrl(fabric.fabric_id);
-      setImageUrl(result.url); // Assuming the response has a "url" field
+      const result = await fabricService.getFabricImageUrl(fabricData.fabric_id);
+      setImageUrl(result.url);
     } catch (error) {
       console.error("Error fetching fabric image URL:", error);
     }
   };
 
   useEffect(() => {
-    if (fabric.image) {
+    if (fabricData.image) {
       fetchImageUrl();
     }
-  }, [fabric.image, fabric.fabric_id]);
+  }, [fabricData.image, fabricData.fabric_id]);
 
   const handleImageUploadSuccess = () => {
-    fetchImageUrl(); // Re-fetch image URL after a successful upload
+    fetchImageUrl();
   };
 
-  // Show a confirmation modal before deleting
   const showDeleteConfirm = () => {
     confirm({
       title: "Are you sure you want to delete this Fabric?",
@@ -47,17 +50,19 @@ const FabricCard = ({ fabric }) => {
     });
   };
 
-  // Handle image deletion
   const handleDelete = async () => {
     try {
       setLoading(true);
-      await fabricService.deleteFabric(fabric.fabric_id);
-      message.success("fabric deleted successfully.");
-      navigate("/fabrics"); // Redirect to the fabrics page after deletion
+      await fabricService.deleteFabric(fabricData.fabric_id);
+      message.success("Fabric deleted successfully.");
+      navigate("/fabrics");
     } catch (error) {
       message.error("Failed to delete the fabric.");
     }
-    //needs to refresh page to see the changes
+  };
+
+  const handleFabricUpdate = (updatedFabric) => {
+    setFabricData(updatedFabric);
   };
 
   return (
@@ -65,36 +70,45 @@ const FabricCard = ({ fabric }) => {
       <div className="flex flex-col">
         <div className="flex flex-row space-x-5">
           <div className="flex flex-col space-y-0 mb-2">
-            <div className="text-lg font-bold">{fabric.fabric_code}</div>
-            <div className="text-sm font-extrabold text-gray-400">{fabric.description}</div>
+            <div className="text-lg font-bold">{fabricData.fabric_code}</div>
+            <div className="text-sm font-extrabold text-gray-400">{fabricData.description}</div>
+          </div>
+          <div onClick={() => setIsEditModalVisible(true)}>
+            <EditOutlined className="text-blue-500 hover:text-blue-300 transition-colors" />
           </div>
           <div onClick={showDeleteConfirm}>
             <DeleteOutlined className="text-red-500 hover:text-red-300 transition-colors" />
           </div>
         </div>
         <div className="text-md mb-2">
-          <strong>ID:</strong> {fabric.fabric_id}
+          <strong>ID:</strong> {fabricData.fabric_id}
         </div>
         <div className="text-md mb-2">
-          <strong>Available Length:</strong> {fabric.available_length} meters
+          <strong>Available Length:</strong> {fabricData.available_length} meters
         </div>
         <div className="text-md mb-2">
-          <strong>Brand:</strong> {fabric.fabric_brand}
+          <strong>Brand:</strong> {fabricData.fabric_brand}
         </div>
         <div className="text-md mb-2">
-          <strong>Stock Location:</strong> {fabric.stock_location}
+          <strong>Stock Location:</strong> {fabricData.stock_location}
         </div>
         <div className="text-md mb-2">
-          <strong>Barcode:</strong> {fabric.barcode}
+          <strong>Barcode:</strong> {fabricData.barcode}
         </div>
       </div>
       <div className="text-md mb-2">
         <FabricImage
-          fabricId={fabric.fabric_id}
+          fabricId={fabricData.fabric_id}
           imageUrl={imageUrl}
           onImageUploadSuccess={handleImageUploadSuccess}
         />
       </div>
+      <EditTextileModal
+        visible={isEditModalVisible}
+        onClose={() => setIsEditModalVisible(false)}
+        fabric={fabricData}
+        onUpdate={handleFabricUpdate}
+      />
     </div>
   );
 };
