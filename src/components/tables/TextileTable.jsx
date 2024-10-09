@@ -48,11 +48,11 @@ const TextileTable = () => {
     {
       title: 'Fabric Id',
       dataIndex: 'fabric_id',
-      fixed: 'left',
     },
     {
       title: 'Fabric Code',
       dataIndex: 'fabric_code',
+      fixed: 'left',
     },
     {
       title: 'Description',

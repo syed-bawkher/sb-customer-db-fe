@@ -92,29 +92,28 @@ const fabricService = {
       });
   },
 
-  // Update an existing fabric
   updateFabric(fabricId, fields) {
     const data = JSON.stringify(fields);
-
+  
     const config = {
       method: "put",
       maxBodyLength: Infinity,
-      url: `${BASE_URL}/fabric/${encodeURIComponent(fabricId)}`, // Updated route to match backend
+      url: `${BASE_URL}/fabric/${encodeURIComponent(fabricId)}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getBearerToken()}`,
       },
       data: data,
     };
-
+  
     return axios
       .request(config)
       .then((response) => response.data)
       .catch((error) => {
         console.error("Error updating fabric:", error);
-        throw error; // Rethrow to ensure error handling continues in the calling context
+        throw error;
       });
-  },
+  },  
 
   // Delete a fabric
   deleteFabric(fabricId) {
