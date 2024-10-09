@@ -15,10 +15,15 @@ const NavBar = () => {
     const handleManageTextileClick = () => {
         navigate(`/fabrics`); // Navigate to customer details
     };
+
+    const handleHomeClick = () => {
+        navigate(`/`); // Navigate to Home
+    }
+
   return (
     <>
         <Header className='flex flex-row justify-between' >
-            <div style={{ color: 'white', fontSize: 20, marginLeft: 20 }}>
+            <div style={{ color: 'white', fontSize: 20, marginLeft: 20 }} onClick={handleHomeClick}>
                 Syed Bawkher CRM
             </div>
             <div className='flex flex-row items-center space-x-5'>

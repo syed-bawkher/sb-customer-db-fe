@@ -9,6 +9,7 @@ import moment from "moment";
 import OrderDetailsForm from "../forms/OrderDetailsForm";
 import AddMeasurementsForm from "../forms/AddMeasurementsForm";
 import AddItemsForm from "../forms/AddItemsForm";
+import { useNavigate } from "react-router-dom"; 
 
 const { Step } = Steps;
 
@@ -21,6 +22,8 @@ const CreateOrderModal = ({ isOpen, isCancel, customerid = null }) => {
     displayShirtForm: false,
     displayPantForm: false,
   });
+
+  const navigate = useNavigate(); // Hook to get the navigate function
 
   //Array of steps for the order creation process
   const steps = [

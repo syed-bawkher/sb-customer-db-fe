@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { Tooltip, Button } from 'antd';
 import { IoMdCreate } from "react-icons/io";
 import CreateOrderModal from "../modals/CreateOrderModal";
+import { useNavigate } from "react-router-dom";
 
 const CreateOrderButton = ({ customerId = null }) => {
     const [isCreateOrderModalVisible, setIsCreateOrderModalVisible] = useState(false);
+    const navigate = useNavigate(); // Hook to get the navigate function
 
     const handleCreateOrder = () => {
         setIsCreateOrderModalVisible(true);
     };
+
+    const handleCancel = () => {
+        setIsCreateOrderModalVisible(false);
+        //refresh page
+        navigate(0)
+    }
 
     return (
         <>
