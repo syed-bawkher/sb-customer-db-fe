@@ -76,14 +76,7 @@ const FabricCard = ({ fabric }) => {
   // Print handler using contentRef
   const handlePrint = useReactToPrint({
     contentRef,
-    pageStyle: `
-      @media print {
-        body {
-          margin: 0;
-          padding: 0;
-        }
-      }
-    `,
+    pageStyle: `@page { margin: 0; } body { display: flex; justify-content: center; align-items: center; height: 100vh; }`,
   });
 
   return (
@@ -129,7 +122,7 @@ const FabricCard = ({ fabric }) => {
         <div className="text-md mb-2">
           <strong>Stock Location:</strong> {fabricData.stock_location}
         </div>
-        <div className="text-md mb-2">
+        <div className="text-md mb-2 flex flex-row">
           <div ref={contentRef}>
             <Barcode
               value={fabricData.fabric_id.toString()}
@@ -138,6 +131,9 @@ const FabricCard = ({ fabric }) => {
               fontSize={12}
               margin={0}
             />
+            <div className="print-only hidden" style={{ display: "none" }}>
+              Fabric: {fabricData.fabric_code}
+            </div>
           </div>
         </div>
       </div>

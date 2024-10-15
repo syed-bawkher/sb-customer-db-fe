@@ -6,3 +6,27 @@ body {
   @apply bg-slate-300;
   @apply text-gray-800;
 }
+
+@media print {
+  .print-only {
+    display: block !important; /* Ensure it overrides any Tailwind or inline styles */
+    text-align: center;
+    font-size: 10px; /* Adjust font size as needed */
+    margin-top: 2px;
+  }
+  
+  .screen-only {
+    display: none !important; /* Ensure it is hidden in print */
+  }
+  
+  @page {
+    margin: 0; /* Remove page margins */
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen height for barcode */
+  }
+}
