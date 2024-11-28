@@ -3,7 +3,7 @@ import { Input, message, Spin } from "antd";
 import customerService from "../../services/customerService";
 import CustomerList from "../list/CustomerList";
 
-const FindCustomer = () => {
+const FindCustomerByOrderNo = () => {
   const { Search } = Input;
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState([]);
@@ -12,12 +12,18 @@ const FindCustomer = () => {
     if (!value.trim()) return;
     setLoading(true);
     try {
-      const results = await customerService.searchCustomers(value);
-      console.log("Search results:", results);
-      setCustomers(results); // Set search results to state
+      const result = await customerService.findByOrderNo(value);
+      console.log("Search results:", result);
+      if (result) {
+        setCustomers([result]); // Wrap the result in an array
+      } else {
+        setCustomers([]); // Set to empty array if no result
+      }
     } catch (error) {
-      console.error("Failed to fetch customers:", error);
-      message.error("Failed to search for customers");
+      console.error("Failed to fetch customer details:", error);
+      message.error(
+        "Failed to search for customers, try using their phone No or Name"
+      );
     } finally {
       setLoading(false);
     }
@@ -28,7 +34,7 @@ const FindCustomer = () => {
       <div>
         <Spin spinning={loading}>
           <Search
-            placeholder="Search by Name or Phone Number"
+            placeholder="Search by Order Number"
             allowClear
             enterButton="Search"
             onSearch={handleSearch}
@@ -40,4 +46,4 @@ const FindCustomer = () => {
   );
 };
 
-export default FindCustomer;
+export default FindCustomerByOrderNo;

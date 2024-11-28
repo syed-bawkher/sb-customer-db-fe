@@ -39,6 +39,22 @@ const customerService = {
         }
     },
 
+    findByOrderNo: async (orderNo) => {
+        const url = `${BASE_URL}/customer/order/${encodeURIComponent(orderNo)}`;
+        try {
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${getBearerToken()}`
+                }
+            });
+            console.log('Customer by order number:', response.data);
+            return response.data;
+        } catch (error) {
+            console.error('Error finding customer by order number:', error);
+            throw error;
+        }
+    },
+
     createCustomer: async (customer) => {
         const url = `${BASE_URL}/customer`;
         try {
